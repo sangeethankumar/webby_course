@@ -70,7 +70,7 @@ Themes come with their own set of configurable options. These options let custom
 
 **Exercises**
 
-1. Create a file named `hugo.toml` in the site root (not inside any folder).
+1. Open the file named `hugo.toml` in the site root (not inside any folder).
 2. Add the following content:
    ```toml
    [module]

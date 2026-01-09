@@ -28,8 +28,8 @@ When creating a new Hugo site, it sets up a folder structure with all the necess
 
 1. Use `hugo new site my-portfolio` to create a new site.
 2. Navigate into the `my-portfolio` directory.
-3. Run `ls` or `dir` to see the folder structure Hugo created.
-4. Identify the `content`, `static`, and `themes` directories.
+3. Make sure that the `content` directory exists. This is where we add all our contents
+4. Make sure that hugo.toml file exists
 
 ---
 
@@ -43,7 +43,7 @@ Hugo includes a web server that runs on a computer. This server lets browsers di
 2. Open `http://localhost:1313/` in a browser.
 3. Notice the message "Page Not Found" appears (this is normal because there is no theme yet).
 4. Keep the terminal window open but return to it after the next section.
-5. Learn to stop the server with `Ctrl+C` (this will be needed later).
+5. Stop the server with `Ctrl+C` (this can be left running. But sometimes, it might be necessary to restart the server).
 
 ---
 
@@ -55,13 +55,12 @@ Hugo Modules is the modern way to add themes to a site. Instead of downloading t
 
 **Exercises**
 
-1. Stop the server if it is running (press `Ctrl+C`).
-2. Run `hugo mod init github.com/yourusername/my-portfolio` (replace `yourusername` with any name).
-3. Add the Beautiful Hugo theme:
+1. Run `hugo mod init github.com/yourusername/my-portfolio` (replace `yourusername` with any name).
+2. Add the Beautiful Hugo theme:
    ```bash
    hugo mod get github.com/halogenica/beautifulhugo
    ```
-4. Notice that Hugo created a `go.mod` file in the project root.
+3. Notice that Hugo created a `go.mod` file in the project root.
 
 ---
 
@@ -76,10 +75,6 @@ Themes come with their own set of configurable options. These options let custom
 1. Create a file named `hugo.toml` in the site root (not inside any folder).
 2. Add the following content:
    ```toml
-   baseURL = 'http://localhost:1313/'
-   title = 'My Portfolio'
-   languageCode = 'en'
-   
    [module]
    [[module.imports]]
    path = "github.com/halogenica/beautifulhugo"
@@ -94,7 +89,7 @@ Themes come with their own set of configurable options. These options let custom
 
 Now that the site has a working theme, content can be created that will actually display. For a single-page portfolio, only one content file called `_index.md` is needed. This file becomes the homepage.
 
-This section shows how to create the homepage file, configure its front matter, and verify that content appears in the browser. A simple introduction will be written to confirm everything is working before adding more detailed content.
+This section shows how to create the homepage file, configure its front matter, and verify that content appears in the browser. Write a simple introduction for test.
 
 ### Creating the homepage file
 
@@ -118,7 +113,7 @@ With the theme installed and the homepage file created, actual content can now b
 
 **Exercises**
 
-1. In `content/_index.md`, below the front matter (after the second `---`), add:
+1. In `content/_index.md`, below the front matter (after the second `---`), add self-introduction like:
    ```markdown
    # Hello, I'm [Your Name]
    
@@ -262,19 +257,18 @@ Beautiful Hugo theme provides configuration options to customize how the site lo
 
 **Exercises**
 
-1. Stop the server with `Ctrl+C`.
-2. Open `hugo.toml` and add a `[params]` section at the end with one setting:
+1. Open `hugo.toml` and add a `[params]` section at the end with one setting:
    ```toml
    [params]
    subtitle = "Researcher and Data Scientist"
    ```
-3. Restart the server with `hugo server -D` and notice the subtitle appears below the site title.
-4. Change the subtitle text to something different. Restart and verify the change appears.
-5. Add a second parameter below `subtitle`:
+2. Restart the server with `hugo server -D` and notice the subtitle appears below the site title.
+3. Change the subtitle text to something different. Restart and verify the change appears.
+4. Add a second parameter below `subtitle`:
    ```toml
    favicon = "/images/favicon.ico"
    ```
-6. Add a small favicon image to `static/images/favicon.ico`, restart the server, and verify it appears in the browser tab.
+5. Add a small favicon image to `static/images/favicon.ico`, restart the server, and verify it appears in the browser tab.
 
 **Note about theme configuration:**
 
@@ -297,17 +291,15 @@ An anchor link uses the section heading text to create a target. If there is a h
    url = "#about-me"
    weight = 1
    ```
-2. Save and restart the server.
-3. Look for the navigation menu in the site header and click "About" to see it scroll to that section.
-4. Add a second menu item below the first:
+2. Look for the navigation menu in the site header and click "About" to see it scroll to that section.
+3. Add a second menu item below the first:
    ```toml
    [[menu.main]]
    name = "Skills"
    url = "#skills"
    weight = 2
    ```
-5. Restart and test both menu items work.
-6. Add two more menu items for Projects and Contact:
+4. Add two more menu items for Projects and Contact:
    ```toml
    [[menu.main]]
    name = "Projects"
@@ -319,17 +311,16 @@ An anchor link uses the section heading text to create a target. If there is a h
    url = "#contact"
    weight = 4
    ```
-7. Restart and verify all four navigation links work correctly.
-8. Add a "Scroll to Bottom" link near the top of the content in `_index.md` (after the introduction paragraph):
+5. Add a "Scroll to Bottom" link near the top of the content in `_index.md` (after the introduction paragraph):
    ```markdown
    [↓ Scroll to Bottom](#contact)
    ```
-9. Save and click it to verify it jumps to the Contact section at the bottom.
-10. Add a "Back to Top" link at the end of the Contact section in `_index.md`:
+6. Save and click it to verify it jumps to the Contact section at the bottom.
+7.  Add a "Back to Top" link at the end of the Contact section in `_index.md`:
    ```markdown
    [↑ Back to Top](#)
    ```
-11. Save, scroll down, and click it to jump back to the top.
+8.  Save, scroll down, and click it to jump back to the top.
 
 ---
 

@@ -4,8 +4,6 @@ Hugo uses layouts to transform Markdown content into HTML pages. The Beautiful H
 
 Hugo follows a specific lookup order when searching for layouts. It checks the site's `layouts/` directory first, then falls back to the theme's `layouts/` directory. Creating a layout file in the site's `layouts/` directory causes Hugo to use that file instead of the theme's version.
 
-This document shows how to override theme layouts with custom HTML.
-
 Here we will see:
 
 - how to access and display template variables
@@ -18,25 +16,18 @@ Here we will see:
 
 Template variables provide access to content and configuration values. Site-level variables come from `hugo.toml` and are accessed with `.Site`. Page-level variables come from front matter and Markdown content, accessed directly with `.Title`, `.Content`, or through `.Params` for custom fields.
 
-This section demonstrates template variables by building a custom homepage layout.
-
 ### Site variables from configuration
 
 Values defined in `hugo.toml` become accessible in layouts through the `.Site` object. The site title is accessed with `{{ .Site.Title }}`. Custom parameters defined under `[params]` are accessed with `{{ .Site.Params.fieldname }}`.
 
-Creating a basic layout file demonstrates how Hugo finds and applies custom layouts instead of theme layouts.
-
 **Exercises**
 
-1. Navigate to the Beautiful Hugo portfolio site directory.
-2. Open `hugo.toml` and verify it contains `title = "My Portfolio"` (or similar).
-3. Add a custom parameter to `hugo.toml`:
+1. Add a custom parameter to `hugo.toml`:
    ```toml
    [params]
    tagline = "Research and Projects"
    ```
-4. Create a `layouts/` directory in the site root if it does not exist.
-5. Create `layouts/index.html` with:
+2. Create `layouts/index.html` with:
    ```html
    <html>
    <body>
@@ -45,9 +36,8 @@ Creating a basic layout file demonstrates how Hugo finds and applies custom layo
    </body>
    </html>
    ```
-6. Start the server with `hugo server -D` and navigate to `http://localhost:1313/`.
-7. Verify the page displays "My Portfolio" and "Research and Projects" from the configuration file.
-8. Change the tagline in `hugo.toml` to something different. Reload and verify the new tagline appears.
+3. Start the server with `hugo server -D` and navigate to `http://localhost:1313/`.
+4. Change the tagline in `hugo.toml` to something different. Reload and verify the new tagline appears.
 
 ---
 
@@ -57,19 +47,18 @@ Page-level variables come from the front matter and content of Markdown files. T
 
 **Exercises**
 
-1. Open `content/_index.md` and verify it has front matter with a title.
-2. Add content below the front matter if it does not exist:
+1. Add content below the front matter of `content/_index.md` if it does not exist:
    ```markdown
    ## About
    
    Brief introduction about the portfolio.
    ```
-3. Add a custom field to the front matter:
+2. Add a custom field to the front matter:
    ```yaml
    title: "Home"
    subtitle: "Machine Learning Research"
    ```
-4. Update `layouts/index.html` to display page variables:
+3. Update `layouts/index.html` to display page variables:
    ```html
    <html>
 
@@ -82,9 +71,9 @@ Page-level variables come from the front matter and content of Markdown files. T
 
    </html>
    ```
-5. Reload `http://localhost:1313/` and verify the subtitle and markdown content display.
-6. Change the subtitle in `_index.md` to something different. Reload and verify the change appears.
-7. Add another paragraph to the content in `_index.md`. Reload and verify it renders.
+4. Reload `http://localhost:1313/` and verify the subtitle and markdown content display.
+5. Change the subtitle in `_index.md` to something different. Reload and verify the change appears.
+6. Add another paragraph to the content in `_index.md`. Reload and verify it renders.
 
 ---
 
@@ -113,7 +102,7 @@ Combining site and page variables creates a complete homepage layout. Multiple s
    
    Email: contact@example.com
    ```
-2. Update `layouts/index.html` to add site-wide footer:
+2. Update `layouts/index.html` to add footer:
    ```html
    <html>
 
@@ -164,13 +153,13 @@ The file `layouts/_default/single.html` applies to all individual content pages 
 4. Navigate to `http://localhost:1313/about/`.
 5. Verify the page displays with the custom HTML instead of Beautiful Hugo theme styling.
 6. Check the browser tab title. Verify it shows "About - My Portfolio" (combining page title and site title).
-7. Navigate to the homepage. Verify it still uses `layouts/index.html` (not affected by this change).
+7. Navigate to the homepage. Verify it still uses `layouts/index.html` (it should not be affected by this change).
 
 ---
 
 ### Displaying page metadata
 
-The `.Date` variable accesses the date from page front matter. The `.Format` function converts the date into a readable format. Custom front matter fields are accessed through `.Params`.
+The `.Date` variable accesses the date from page front matter. The `.Format` function converts the date into a readable format.
 
 **Exercises**
 
@@ -235,7 +224,7 @@ Inside the range loop, template variables like `{{ .Title }}` and `{{ .RelPermal
 
 ### Displaying child page metadata
 
-Inside the `{{ range .Pages }}` loop, each page's front matter is accessible through `.Params`. This allows displaying metadata for each item in the list.
+Inside the `{{ range .Pages }}` loop, each page's front matter is accessible through `.Params`. 
 
 **Exercises**
 
@@ -270,8 +259,6 @@ Inside the `{{ range .Pages }}` loop, each page's front matter is accessible thr
 
 Section-specific layouts override default layouts for specific directories. Creating `layouts/about/single.html` applies only to the about page. Creating `layouts/projects/single.html` applies only to pages in the projects directory. Hugo checks for section-specific layouts before falling back to default layouts.
 
-This hierarchy allows different HTML structures for different sections while maintaining defaults for everything else.
-
 ### About page custom layout
 
 The file `layouts/about/single.html` applies only to `content/about/index.md`. This allows a different structure for the about page without affecting other single pages.
@@ -279,13 +266,7 @@ The file `layouts/about/single.html` applies only to `content/about/index.md`. T
 **Exercises**
 
 1. Create `layouts/about/` directory.
-2. Add a name parameter to `hugo.toml`:
-   ```toml
-   [params]
-   name = "Researcher Name"
-   tagline = "Research and Projects"
-   ```
-3. Create `layouts/about/single.html` with:
+2. Create `layouts/about/single.html` with:
    ```html
    <html>
 
@@ -297,8 +278,8 @@ The file `layouts/about/single.html` applies only to `content/about/index.md`. T
 
    </html>
    ```
-4. Navigate to `http://localhost:1313/about/`.
-5. Verify the "Back to Home" link appears at the bottom.
+3. Navigate to `http://localhost:1313/about/`.
+4. Verify the "Back to Home" link appears at the bottom.
 
 ---
 
@@ -336,7 +317,7 @@ The file `layouts/projects/list.html` applies only to `content/projects/_index.m
 
 ### Individual project layout
 
-The file `layouts/projects/single.html` applies to individual project pages in the projects directory. This allows project pages to display different metadata than other single pages.
+The file `layouts/projects/single.html` applies to individual project pages in the projects directory. 
 
 **Exercises**
 

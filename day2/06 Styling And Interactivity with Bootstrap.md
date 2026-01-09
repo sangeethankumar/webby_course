@@ -2,8 +2,6 @@
 
 Bootstrap is a CSS framework that provides pre-written styles for common design patterns. Bootstrap classes applied to HTML elements control their appearance without writing custom CSS. Bootstrap requires loading CSS and JavaScript files through CDN links. Once loaded, Bootstrap classes work in all Hugo layouts.
 
-This document shows how to add Bootstrap styling to the custom layouts created in Document 05.
-
 Here we will see:
 
 - how to load Bootstrap in Hugo templates
@@ -315,7 +313,7 @@ Bootstrap typography classes control text appearance. Spacing classes control ma
 
 ### Text color utilities
 
-Bootstrap provides color classes that change text color. Classes like `text-primary`, `text-success`, and `text-danger` apply semantic colors. The `text-muted` class creates gray text for secondary information.
+Bootstrap provides color classes that change text color. Classes like `text-primary`, `text-success`, and `text-danger` apply colors. The `text-muted` class creates gray text for secondary information.
 
 **Exercises**
 
@@ -553,7 +551,7 @@ FILL
 
 ## Section 4: Components for Portfolio Content
 
-Bootstrap components provide styled patterns for common interface elements. This section introduces buttons, badges, alerts, cards, and styling utilities using simple page contexts without complex loops.
+Bootstrap components provide styled patterns for common interface elements. 
 
 ### Styling buttons
 

@@ -105,7 +105,7 @@ Hugo provides a command to create content files with the correct front matter au
 
 ---
 
-### Viewing your first page
+### Viewing the page
 
 With the theme installed and the homepage file created, actual content can now be added that will display in the browser. This confirms that the setup is working correctly.
 

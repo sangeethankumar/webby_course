@@ -2,8 +2,6 @@
 
 Hugo builds websites by reading files from a computer and turning them into web pages. Content is written in Markdown files, extra information is stored in front matter, and themes and configuration files control how the site looks.
 
-This file-based way of working fits well with research work, where papers, figures, code, and notes already exist as files.
-
 Here we will see:
 
 - how Hugo is used locally

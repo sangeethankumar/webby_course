@@ -2,8 +2,6 @@
 
 Hugo creates multiple pages from directories containing `index.md` files. Each directory becomes a page bundle that stores content and resources together. Multiple bundles create a multi-page website structure. Bundles can be nested to create hierarchical URL paths, and menus connect pages through navigation.
 
-This document shows how to create a multi-page portfolio where different sections have their own pages.
-
 Here we will see:
 
 - how to set up a new multi-page portfolio site
@@ -16,7 +14,7 @@ Here we will see:
 
 ## Initial Setup
 
-A new Hugo site will be created for the multi-page portfolio. This site will be separate from the single-page portfolio in the first document. This section executes the setup steps quickly.
+A new Hugo site will be created for the multi-page portfolio. This site will be separate from the single-page portfolio in the first document. 
 
 ### Creating the site and installing the theme
 
@@ -30,10 +28,6 @@ Create a new site called `multi-page-portfolio`, install the Beautiful Hugo them
 4. Install the Beautiful Hugo theme with `hugo mod get github.com/halogenica/beautifulhugo`.
 5. Create a `hugo.toml` file in the site root with the following content:
    ```toml
-   baseURL = 'http://localhost:1313/'
-   title = 'My Portfolio'
-   languageCode = 'en'
-   
    [module]
    [[module.imports]]
    path = "github.com/halogenica/beautifulhugo"
@@ -69,8 +63,6 @@ The homepage is the landing page at the root URL of the site. For a multi-page p
 
 Hugo generates a separate page for each directory that contains an `index.md` file. These directories are called page bundles. The directory name determines the page URL, and the `index.md` file provides the content.
 
-This section shows how to create multiple independent pages.
-
 ### Creating a page bundle
 
 A page bundle is a directory containing an `index.md` file. Hugo reads the `index.md` file and creates a web page at a URL matching the directory name. For example, a directory `content/about/` containing `index.md` becomes a page at `/about/`.
@@ -80,7 +72,7 @@ The `index.md` file needs front matter to tell Hugo how to handle the page. Belo
 **Exercises**
 
 1. Create a directory `content/about/`.
-2. Create a file `content/about/index.md` with the following content:
+2. Create a file `content/about/index.md` with content about yourself like:
    ```markdown
    ---
    title: "About"
@@ -112,7 +104,7 @@ The `index.md` file needs front matter to tell Hugo how to handle the page. Belo
 
 ### Adding more pages
 
-Each bundle directory with `index.md` creates an independent page. This subsection creates two more pages for projects and publications.
+Each bundle directory with `index.md` creates an independent page. 
 
 **Exercises**
 
@@ -140,7 +132,6 @@ Each bundle directory with `index.md` creates an independent page. This subsecti
    My research has resulted in several publications in peer-reviewed journals. These papers cover topics in astronomy, planetary science, and observational techniques.
    ```
 4. Navigate to `/publications/` and verify this third page exists.
-5. Navigate between all three pages by typing the URLs manually. Verify each displays different content.
 
 ---
 
@@ -161,8 +152,6 @@ Front matter controls how Hugo handles each page. The `draft` setting determines
 ## Section 2: Connecting Pages with Navigation
 
 Menu entries link pages together through navigation. Menu configuration in `hugo.toml` defines which pages appear in the navigation and in what order. Menus appear on all pages and allow navigation between different sections.
-
-This section shows how to create menu entries so navigation between pages works without typing URLs manually.
 
 ### Adding a menu entry
 
@@ -202,8 +191,6 @@ Multiple menu entries create multiple navigation links. Each `[[menu.main]]` blo
    weight = 3
    ```
 2. Save and reload any page. Verify three links now appear in navigation.
-3. Click "Projects" and verify it navigates to `/projects/`.
-4. From the projects page, click "Publications" and verify navigation works from any page to any other page.
 
 ---
 
@@ -226,7 +213,7 @@ The homepage can contain direct links to main sections. These links provide an a
 
 **Exercises**
 
-1. Open `content/_index.md` and add the following after the existing content:
+1. Open `content/_index.md` and add new content after the existing content:
    ```markdown
    
    ## Explore My Work
@@ -238,7 +225,6 @@ The homepage can contain direct links to main sections. These links provide an a
 2. Save and reload the homepage. Verify the links appear below the introduction.
 3. Click each link and verify they navigate to the correct pages.
 4. Change the description text for one of the links. Reload and verify the change appears.
-5. Add a fourth link to another page if additional pages were created earlier. Verify it works.
 
 ---
 
@@ -247,8 +233,6 @@ The homepage can contain direct links to main sections. These links provide an a
 Some portfolio sections contain multiple items. The projects page might list several projects. The publications page might list several papers. Hugo provides a way to automatically display these items.
 
 Hugo handles two types of pages differently. A regular page bundle uses `index.md` and displays a single page. A list page uses `_index.md` (with underscore) and can automatically display child pages within that section.
-
-This section shows how to convert a regular page to a list page and add individual items.
 
 ### Understanding index.md vs _index.md
 
@@ -274,8 +258,6 @@ To convert a regular page to a list page, rename `index.md` to `_index.md`. Hugo
 **Exercises**
 
 1. In your file system, rename `content/projects/index.md` to `content/projects/_index.md`.
-2. Save and reload `http://localhost:1313/projects/`. The page still displays the same content.
-3. The page is now ready to display individual project pages automatically.
 
 ---
 
@@ -336,7 +318,6 @@ The publications page can follow the same pattern. Convert it to a list page and
    This paper presents novel approaches to analyzing large astronomical datasets. Published in Cell, 2023.
    ```
 4. Navigate to `/publications/` and verify both papers appear in the list automatically.
-5. Click on one of the publication links to verify it navigates to the individual page.
 
 ---
 
@@ -352,12 +333,6 @@ Use `_index.md` (with underscore) when:
 - Individual items in that section need their own pages
 - Example: Projects section with multiple project pages, Publications section with multiple paper pages
 
-**Exercises**
-
-1. Verify that `content/about/` still uses `index.md` (without underscore) because it is a single cohesive page.
-2. Verify that `content/projects/` and `content/publications/` now use `_index.md` (with underscore) because they display lists of items.
-3. Navigate to all three sections and observe how the about page displays content directly while projects and publications display lists of links.
-
 ---
 
 ## Section 4: Adding Resources to Bundles
@@ -365,8 +340,6 @@ Use `_index.md` (with underscore) when:
 Files placed in a bundle directory alongside `index.md` become page resources. These resources are referenced using relative paths. Hugo serves resources from the bundle directory when that page loads.
 
 Hugo offers two ways to store files. The `static` directory stores files accessible from any page using absolute paths like `/images/photo.jpg`. Bundle resources store files within each page directory using relative paths like `photo.jpg`. Bundle resources are stored with the pages that reference them.
-
-This section shows how to add images and documents to bundles, how to reference them, and how bundle resources remain isolated from each other.
 
 ### Adding images to bundles
 

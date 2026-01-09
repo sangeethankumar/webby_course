@@ -2,8 +2,6 @@
 
 Hugo portfolios can display images, embed media, and manage structured content efficiently. Images are stored in the static directory and referenced in Markdown. Shortcodes provide patterns for displaying rich media like videos and code snippets. Data files separate content from presentation, allowing information to be maintained in one place and displayed automatically.
 
-This document teaches how to enhance a Hugo portfolio with visual and structured content.
-
 Here we will see:
 
 - how to add and organize images
@@ -18,7 +16,7 @@ Hugo serves images from the static directory. Files placed in static are copied 
 
 This section introduces basic image display and establishes the static directory as the location for site assets.
 
-### Adding your first image
+### Adding images
 
 The static directory holds files that Hugo copies directly to the website. When placing an image in `static/images/profile.jpg`, it is referenced in Markdown as `/images/profile.jpg`. The leading slash tells Hugo to look from the site root.
 
@@ -34,27 +32,11 @@ Markdown image syntax uses square brackets for alt text and parentheses for the 
    ```
 4. Save and verify the image displays in the browser.
 5. Replace `profile.jpg` with a different image (keeping the same filename). Reload and verify the new image appears without changing the Markdown.
+6. Add a second image `research.jpg` to one of the projects.
 
 ---
 
-### Understanding image paths
-
-Hugo serves files from static using absolute paths. A path starting with `/` tells the browser to look from the site root. This means `/images/profile.jpg` always points to `static/images/profile.jpg` regardless of where the Markdown file is located.
-
-**Exercises**
-
-1. Add a second image `research.jpg` to `static/images/`.
-2. In the `## Projects` section, add:
-   ```markdown
-   ![Research Project](/images/research.jpg)
-   ```
-3. Verify both images display correctly.
-4. Try changing the alt text of one image. Reload and verify the change.
-5. Add a third image to the same directory and reference it in the `## About Me` section.
-
----
-
-### Alt text for accessibility
+### Alt text
 
 Alt text describes an image for people who cannot see it. Screen readers announce alt text to visually impaired users. Alt text also displays when an image fails to load.
 
@@ -62,11 +44,10 @@ Good alt text describes the image content concisely without saying "image of" or
 
 **Exercises**
 
-1. Review the alt text for the profile image. Change it from "Profile Photo" to a descriptive phrase like "Dr. Smith in the laboratory".
+1. Change alt text of profile image from "Profile Photo" to a descriptive phrase like "Dr. Frodo in the laboratory".
 2. Update the alt text for the research image to describe what the image shows.
-3. Add a new image with descriptive alt text that explains its content.
-4. Right-click on one of the images and select "Inspect" to see the HTML `<img>` tag and verify the alt text appears in the `alt` attribute.
-5. Change one image filename in the Markdown to a non-existent file (like `/images/missing.jpg`). Reload the page and notice the alt text displays in place of the broken image. Change it back to the correct filename.
+3. Right-click on one of the images and select "Inspect" to see the HTML `<img>` tag and verify the alt text appears in the `alt` attribute.
+4. Change one image filename in the Markdown to a non-existent file (like `/images/missing.jpg`). Reload the page and notice the alt text displays in place of the broken image. Change it back to the correct filename.
 
 ---
 
@@ -125,7 +106,6 @@ SVG images are vector graphics that scale without losing quality. They work well
    ```
 3. Save and verify the SVG displays correctly.
 4. Resize the browser window and notice the SVG scales smoothly.
-5. Add a second SVG image and reference it in a different section.
 
 ---
 
@@ -147,7 +127,7 @@ The shortcode uses named parameters like `src`, `alt`, `caption`, and `width`. T
 
 1. Replace the profile image Markdown with:
    ```markdown
-   {{< figure src="/images/profile.jpg" alt="Profile photo" caption="Dr. [Your Name]" width="300px" >}}
+   {{< figure src="/images/profile.jpg" alt="Profile photo" caption="Your Name" width="300px" >}}
    ```
 2. Save and reload. Verify the image now displays with a caption below it.
 3. Change the caption text to something different. Reload and verify the new caption appears.
@@ -211,19 +191,19 @@ Hugo reads all files from the data directory and makes them available to shortco
 **Exercises**
 
 1. Create a `data/` directory in the site root.
-2. Create `data/contact.yaml` with simple values and nested objects:
-   ```yaml
-   name: "Your Name"
-   email: "you@example.com"
-   social:
-     github: "username"
-   ```
-3. Create `data/skills.yaml` with a list:
+2. Create `data/skills.yaml` with a list:
    ```yaml
    languages:
      - Python
      - R
      - JavaScript
+   ```
+3. Create `data/contact.yaml` with simple values and nested objects:
+   ```yaml
+   name: "Your Name"
+   email: "you@example.com"
+   social:
+     github: "username"
    ```
 4. Create `data/projects.yaml` with a list of objects:
    ```yaml
@@ -246,8 +226,6 @@ Hugo reads all files from the data directory and makes them available to shortco
      link: "https://doi.org/10.1016/example"
      pdf: "/documents/paper.pdf"
    ```
-6. Save all files and verify they open correctly.
-
 ---
 
 ### Creating a shortcode that accesses single values
@@ -268,8 +246,7 @@ The syntax `{{ .Site.Data.contact.name }}` tells Hugo to look in the data direct
    ```markdown
    {{< contact-info >}}
    ```
-4. Save and reload. Verify both values display.
-5. Change the email in `contact.yaml`. Reload and verify the change appears automatically.
+4. Change the email in `contact.yaml`. Reload and verify the change appears automatically.
 
 ---
 

@@ -180,8 +180,7 @@ Markdown headings divide content into logical sections. Each heading creates a v
    ```
 2. Add 2-3 sentences under each section heading.
 3. Save and view the page at `http://localhost:1313/`.
-4. Notice how headings create visual sections.
-5. Try scrolling through the page to see the structure.
+4. Try scrolling through the page to see the structure.
 
 ---
 

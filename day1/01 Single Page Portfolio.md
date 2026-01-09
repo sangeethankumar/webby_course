@@ -315,7 +315,7 @@ An anchor link uses the section heading text to create a target. If there is a h
 6. Save and click it to verify it jumps to the Contact section at the bottom.
 7.  Add a "Back to Top" link at the end of the Contact section in `_index.md`:
    ```markdown
-   [↑ Back to Top](#)
+   [Back to Top](#)
    ```
 8.  Save, scroll down, and click it to jump back to the top.
 

@@ -1,4 +1,4 @@
-# A Single-Page Portfolio (using Beautiful Hugo theme)
+# A Single-Page Portfolio (using Beautiful Hugo theme) - SOLUTIONS
 
 Hugo builds websites by reading files from a computer and turning them into web pages. Content is written in Markdown files, extra information is stored in front matter, and themes and configuration files control how the site looks.
 
@@ -18,7 +18,7 @@ This section covers creating a new Hugo site, learning how the local server work
 
 | Command | Description |
 |---------|-------------|
-| `hugo new site <name>` | Create a new Hugo site with the specified name |
+| `hugo new site <n>` | Create a new Hugo site with the specified name |
 | `cd <directory>` | Navigate into a directory |
 | `ls` (Mac/Linux) or `dir` (Windows) | List files and directories in the current location |
 | `hugo server -D` | Start the Hugo development server (includes draft content) |
@@ -48,9 +48,15 @@ ls
 
 **Exercise** Verify that the `content` directory exists by looking at the output from the previous command. This is where all content files will be stored.
 
+**Solution:**
+The `content` directory should be visible in the `ls` output.
+
 ---
 
 **Exercise** Verify that the `hugo.toml` file exists in the root directory. This file will be used to configure the site settings.
+
+**Solution:**
+The `hugo.toml` file should be visible in the `ls` output.
 
 ---
 
@@ -72,9 +78,18 @@ hugo server -D
 
 **Exercise** Keep the server running and note which terminal window it's running in. You will need to access this terminal later to stop and restart the server.
 
+**Solution:**
+Leave the terminal running. No action needed.
+
 ---
 
 **Exercise** Stop the server by pressing `Ctrl+C` in the terminal, then restart it with `hugo server -D` to practice the restart process.
+
+**Solution:**
+```bash
+# Press Ctrl+C, then:
+hugo server -D
+```
 
 ---
 
@@ -101,9 +116,19 @@ After running these commands, look at the `go.mod` file that was created in the 
 
 **Exercise** Add the Hugo Coder theme by running `hugo mod get github.com/luizdepra/hugo-coder`, look at the `go.mod` file, and verify that it now shows the Hugo Coder theme instead of Ananke.
 
+**Solution:**
+```bash
+hugo mod get github.com/luizdepra/hugo-coder
+```
+
 ---
 
 **Exercise** Add the Beautiful Hugo theme by running `hugo mod get github.com/halogenica/beautifulhugo`, examine the `go.mod` file, and verify it now references Beautiful Hugo. We will use this theme for the rest of the workshop because it provides good options for portfolios.
+
+**Solution:**
+```bash
+hugo mod get github.com/halogenica/beautifulhugo
+```
 
 ---
 
@@ -131,9 +156,25 @@ hugo server -D
 
 **Exercise** Refresh the browser at `http://localhost:1313/` and verify the page now shows theme styling instead of "Page Not Found". The page will be empty but should have a header and footer from the theme.
 
+**Solution:**
+Refresh browser - no commands needed.
+
 ---
 
 **Exercise** Stop the server, add `title = 'My Portfolio'` to the top of `hugo.toml` (before the `[module]` section), restart the server, and verify the title appears in the site header and browser tab.
+
+**Solution:**
+```toml
+title = 'My Portfolio'
+
+[module]
+[[module.imports]]
+path = "github.com/halogenica/beautifulhugo"
+```
+
+```bash
+hugo server -D
+```
 
 ---
 
@@ -171,9 +212,15 @@ hugo new _index.md
 
 **Exercise** Open `content/_index.md` in a text editor and examine the front matter that Hugo automatically added between the `---` delimiters. You should see fields like `title`, `date`, and `draft`.
 
+**Solution:**
+Open `content/_index.md` - no commands needed.
+
 ---
 
 **Exercise** Keep both terminal windows visible - one running the server and one for executing commands. Practice switching between them to get comfortable with the workflow.
+
+**Solution:**
+Arrange terminal windows - no commands needed.
 
 ---
 
@@ -201,9 +248,21 @@ I am a researcher working on interesting problems in data science and machine le
 
 **Exercise** Change the paragraph text to write about your own background or interests, save the file, and verify the browser automatically updates with your new text.
 
+**Solution:**
+```markdown
+I am a computational biologist specializing in genomic data analysis. My research focuses on developing machine learning methods to understand gene regulation patterns.
+```
+
 ---
 
 **Exercise** Add a second paragraph below the first one about your current research or work focus, save the file, and verify both paragraphs appear on the page with appropriate spacing between them.
+
+**Solution:**
+```markdown
+I am a computational biologist specializing in genomic data analysis. My research focuses on developing machine learning methods to understand gene regulation patterns.
+
+Currently, I am working on integrating multi-omics data to predict disease outcomes. My work combines statistical modeling with deep learning approaches to extract meaningful biological insights from complex datasets.
+```
 
 ---
 
@@ -229,9 +288,19 @@ draft: false
 
 **Exercise** Change the `title` in the front matter to something more descriptive like `"Your Name - Portfolio"`, save the file, and verify the new title appears in the browser tab.
 
+**Solution:**
+```yaml
+title: "Jane Smith - Portfolio"
+```
+
 ---
 
 **Exercise** Add a third paragraph to your content about your skills or interests, save the file, scroll through the page, and verify all three paragraphs display correctly with the updated title in the browser tab.
+
+**Solution:**
+```markdown
+I am proficient in Python, R, and various bioinformatics tools. I enjoy collaborating with interdisciplinary teams and communicating complex technical concepts to diverse audiences.
+```
 
 ---
 
@@ -269,9 +338,21 @@ subtitle = "Researcher and Data Scientist"
 
 **Exercise** Change the subtitle to something that describes your work or interests, save the file, restart the server, and verify the new subtitle appears in the site header.
 
+**Solution:**
+```toml
+subtitle = "Computational Biologist | Machine Learning Researcher"
+```
+
 ---
 
 **Exercise** Add `navbar-col = "#F5F5F5"` as a parameter below `subtitle` to change the navigation bar color to a light gray, save the file, restart the server, and verify the navigation bar color changes.
+
+**Solution:**
+```toml
+[params]
+subtitle = "Computational Biologist | Machine Learning Researcher"
+navbar-col = "#F5F5F5"
+```
 
 ---
 
@@ -296,9 +377,20 @@ bio = "I am a researcher working on data science and machine learning problems."
 
 **Exercise** Add social media links by including `github = "yourusername"` and `linkedin = "yourusername"` in the `[params]` section, save the file, restart the server, and verify the social media icons appear on the site with working links.
 
+**Solution:**
+```toml
+github = "janesmith"
+linkedin = "jane-smith-bio"
+```
+
 ---
 
 **Exercise** Add an email contact by including `email = "your.email@example.com"` in the `[params]` section, save the file, restart the server, and verify the email link appears and opens your email client when clicked.
+
+**Solution:**
+```toml
+email = "jane.smith@university.edu"
+```
 
 ---
 

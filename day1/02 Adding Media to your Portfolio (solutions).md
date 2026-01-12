@@ -511,6 +511,8 @@ Hugo provides shortcodes for common content patterns. Shortcodes generate HTML f
 
 This section introduces shortcodes for displaying images with captions, embedding videos and code, creating image galleries, arranging content in columns, and making collapsible sections.
 
+![shortcodes](s2_s3.gif)
+
 | Shortcode Syntax | Description |
 |------------------|-------------|
 | `{{< shortcode >}}` | Self-closing shortcode |
@@ -779,85 +781,6 @@ Second columns section:
 - Clinical applications
 
 {{< endcolumn >}}
-```
-
----
-
-### Using the details shortcode
-
-The details shortcode creates collapsible sections with a clickable title. The content is hidden by default and expands when clicked. This is perfect for publications where you want to show just titles initially, with full details available on demand.
-
-The details shortcode uses `{{< >}}` delimiters (note the angle brackets). The syntax is: `{{< details "Title text" >}}content{{< /details >}}`
-
----
-
-**Exercise** Add a collapsible publication to your Publications section using the details shortcode. Include the title (with year) in the details parameter and add author information, abstract, DOI link, and PDF download link inside. Save and verify the entry is collapsed by default. Click the title to test expanding and collapsing.
-
-**Solution:**
-```markdown
-## Publications
-
-{{< details "Deep Learning Methods for Protein Structure Prediction (2024)" >}}
-
-**Authors:** Smith, J., Doe, J., Brown, A.
-
-**Abstract:** We present a novel transformer-based architecture for predicting protein tertiary structure from amino acid sequences. Our method achieves state-of-the-art accuracy on benchmark datasets.
-
-**Journal:** Nature Methods, Vol. 21, pp. 123-145
-
-**DOI:** [10.1038/s41592-024-01234-5](https://doi.org/10.1038/s41592-024-01234-5)
-
-[Download PDF](/documents/protein-structure-2024.pdf)
-
-{{< /details >}}
-```
-
-Click the title text - content should expand. Click again - content should collapse.
-
----
-
-**Exercise** Add two more publication entries using the details shortcode. Save and verify all three can be expanded and collapsed independently. Create a collapsible FAQ section in your Contact section with 2-3 questions as separate details blocks. Test expanding/collapsing each one.
-
-**Solution:**
-```markdown
-## Publications
-
-{{< details "Deep Learning Methods for Protein Structure Prediction (2024)" >}}
-**Authors:** Smith, J., Doe, J., Brown, A.
-**DOI:** [10.1038/s41592-024-01234-5](https://doi.org/10.1038/s41592-024-01234-5)
-[Download PDF](/documents/protein-structure-2024.pdf)
-{{< /details >}}
-
-{{< details "Statistical Analysis of Multi-Omics Data (2023)" >}}
-**Authors:** Smith, J., Lee, K.
-**DOI:** [10.1093/bioinformatics/btab234](https://doi.org/10.1093/bioinformatics/btab234)
-[Download PDF](/documents/multi-omics-2023.pdf)
-{{< /details >}}
-
-{{< details "Computational Methods in Systems Biology (2023)" >}}
-**Authors:** Doe, J., Smith, J., Chen, L.
-**DOI:** [10.1016/j.csbj.2023.01.234](https://doi.org/10.1016/j.csbj.2023.01.234)
-[Download PDF](/documents/systems-bio-2023.pdf)
-{{< /details >}}
-```
-
-FAQ section:
-```markdown
-## Contact
-
-### Frequently Asked Questions
-
-{{< details "Are you accepting graduate students?" >}}
-Yes, I am currently accepting PhD students for Fall 2025. Ideal candidates should have a strong background in computer science or statistics and an interest in computational biology.
-{{< /details >}}
-
-{{< details "Do you offer internships?" >}}
-I occasionally host summer interns. Undergraduate and Master's students interested in research should contact me in January for summer opportunities.
-{{< /details >}}
-
-{{< details "What programming languages should I know?" >}}
-Proficiency in Python is essential. Experience with R, Julia, or other scientific computing languages is a plus. Familiarity with deep learning frameworks like PyTorch or TensorFlow is helpful.
-{{< /details >}}
 ```
 
 ---

@@ -16,6 +16,9 @@ Hugo needs a project structure and a theme before it can display content. Withou
 
 This section covers creating a new Hugo site, learning how the local server works, installing a theme using Hugo Modules, and configuring basic theme settings. By the end of this section, there will be a working site ready to receive content.
 
+At the end of this section, the portfolio will look something like this:
+![Your Name - Portfolio](s1_name.png)
+
 | Command | Description |
 |---------|-------------|
 | `hugo new site <n>` | Create a new Hugo site with the specified name |
@@ -114,7 +117,7 @@ After running these commands, look at the `go.mod` file that was created in the 
 
 ---
 
-**Exercise** Add the Hugo Coder theme by running `hugo mod get github.com/luizdepra/hugo-coder`, look at the `go.mod` file, and verify that it now shows the Hugo Coder theme instead of Ananke.
+**Exercise** Add the Hugo Coder theme by running `hugo mod get github.com/luizdepra/hugo-coder`, look at the `go.mod` file, and verify that it now also shows the Hugo Coder theme.
 
 **Solution:**
 ```bash
@@ -147,34 +150,31 @@ Themes come with their own set of configurable options. These options let custom
 [[module.imports]]
 path = "github.com/halogenica/beautifulhugo"
 ```
+---
 
+**Exercise** Restart the server (if the server is not running) or refresh the browser at `http://localhost:1313/` and verify the page now shows theme styling instead of "Page Not Found". The page will be empty but should have a header and footer from the theme.
+
+**Solution:**
 ```bash
 hugo server -D
 ```
 
----
-
-**Exercise** Refresh the browser at `http://localhost:1313/` and verify the page now shows theme styling instead of "Page Not Found". The page will be empty but should have a header and footer from the theme.
-
-**Solution:**
-Refresh browser - no commands needed.
+![Beautifulhugo](s1_beautifulhugo.png)
 
 ---
 
-**Exercise** Stop the server, add `title = 'My Portfolio'` to the top of `hugo.toml` (before the `[module]` section), restart the server, and verify the title appears in the site header and browser tab.
+**Exercise** Add `title = 'Your Name - Portfolio'` to the top of `hugo.toml` (before the `[module]` section), restart the server, and verify the title appears in the site header and browser tab.
 
 **Solution:**
 ```toml
-title = 'My Portfolio'
+title = 'Your Name - Portfolio'
 
 [module]
 [[module.imports]]
 path = "github.com/halogenica/beautifulhugo"
 ```
 
-```bash
-hugo server -D
-```
+![Your Name - Portfolio](s1_name.png)
 
 ---
 

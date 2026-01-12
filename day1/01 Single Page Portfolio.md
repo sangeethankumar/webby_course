@@ -92,7 +92,7 @@ In this subsection, you will practice adding different themes to see how Hugo Mo
 
 ```bash
 hugo mod init github.com/yourusername/my-portfolio
-hugo mod get github.com/theNewDynamic/gohugo-theme-ananke
+hugo mod get github.com/theNewDynamic/gohugo-theme-ananke/v2
 ```
 
 After running these commands, look at the `go.mod` file that was created in the project root. This file tracks the Hugo modules (themes and other dependencies) used by the project.

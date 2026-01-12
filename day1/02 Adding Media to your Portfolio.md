@@ -1,4 +1,4 @@
-# Enhancing Your Portfolio with Media and Data
+# Adding Media to your Portfolio
 
 Hugo portfolios can display rich content through markdown formatting, static resources, and shortcodes. Markdown provides structure with headings, lists, and links. Static resources include images, documents, and downloadable files. Shortcodes enable advanced features like galleries, video embeds, and collapsible sections.
 

@@ -16,6 +16,8 @@ A portfolio needs clear structure to present information effectively. Markdown p
 
 This section covers adding structural elements to organize portfolio content, including headings for sections, lists for presenting information, links for external resources, and anchor links for in-page navigation.
 
+![alt text](s2_s1.gif)
+
 | Markdown Syntax | Description |
 |-----------------|-------------|
 | `## Heading` | Level 2 heading (section title) |
@@ -158,8 +160,9 @@ Note: You can use `1.` for all items and Hugo will automatically number them seq
 My most significant projects:
 
 1. Genomic Data Analysis Pipeline
-1. Protein Structure Prediction Tool
-1. Multi-Omics Integration Framework
+2. Protein Structure Prediction Tool
+3. Multi-Omics Integration Framework
+
 ```
 
 ---
@@ -232,7 +235,7 @@ date: 2025-01-10T12:00:00+01:00
 draft: false
 ---
 
-**Quick Navigation:** [About Me](#about-me) | [Projects](#projects) | [Publications](#publications) | [Contact](#contact)
+[About Me](#about-me) | [Projects](#projects)
 
 ## About Me
 
@@ -241,36 +244,44 @@ Content here...
 
 ---
 
-**Exercise** Add a "Back to top" link at the end of each major section that returns to the navigation menu. The anchor for the top would be `#quick-navigation`. Save and test clicking a back to top link.
 
-**Solution:**
+**Exercise** Add Skills, Publications and Contact sections to the Quick Navigation
+
 ```markdown
+---
+title: "Home"
+date: 2025-01-10T12:00:00+01:00
+draft: false
+---
+
+[About Me](#about-me) | [Skills](#skills) | [Projects](#projects) | [Publications](#publications) | [Contact](#contact)
+
 ## About Me
 
-Content about me...
-
-[Back to top](#quick-navigation)
-
----
-
-## Projects
-
-Project information...
-
-[Back to top](#quick-navigation)
+Content here...
 ```
 
 ---
 
-**Exercise** Add a Skills section to your quick navigation menu. Save and test clicking each navigation link to verify they all jump to the correct sections. If any don't work, check that the anchor name matches the heading text (lowercase, spaces as hyphens).
+**Exercise** Add a "Back to top" link at the end of last section which links to the first section.
 
 **Solution:**
 ```markdown
-**Quick Navigation:** [About Me](#about-me) | [Skills](#skills) | [Projects](#projects) | [Publications](#publications) | [Contact](#contact)
+## Contact 
+...
+
+[Back to top](#about-me)
 ```
+---
+**Exercise** Add a "Scroll to bottom" link at the end of last section which links to the first section.
 
-Manually test each link by clicking - verify each link jumps to the corresponding section.
+**Solution:**
+[Scroll to bottom](#contact)
+```markdown
+## About Me 
+...
 
+```
 ---
 
 ## Section 2: Adding Resources
@@ -278,6 +289,8 @@ Manually test each link by clicking - verify each link jumps to the correspondin
 Hugo serves static files like images and documents from the static directory. These resources are copied directly to the website without modification. Organizing resources into subdirectories makes them easier to find and maintain. Different file types serve different purposes in a research portfolio.
 
 This section covers adding images with descriptive alt text, organizing the static directory structure, linking to different file types, using SVG images, and adding badges.
+
+![Links](s2_s2.gif)
 
 | Resource Type | Directory | Usage |
 |---------------|-----------|-------|
@@ -298,13 +311,7 @@ SVG images are vector graphics that scale without losing quality. They work well
 
 ---
 
-**Example** Create the images directory and add a profile photo with descriptive alt text:
-
-```bash
-mkdir -p static/images
-```
-
-Then add the image to `content/_index.md`:
+**Example** Create the images directory and add a profile photo with descriptive alt text. Then add the image to `content/_index.md`:
 
 ```markdown
 ## About Me
@@ -321,10 +328,6 @@ Save and verify the image displays in the browser.
 **Exercise** Add a profile photo to `static/images/profile.jpg` with your own descriptive alt text (not just "Profile Photo"). Save and verify the image displays. Right-click the image and select "Inspect" to verify your alt text appears in the HTML `alt` attribute.
 
 **Solution:**
-```bash
-cp ~/path/to/your/photo.jpg static/images/profile.jpg
-```
-
 ```markdown
 ## About Me
 
@@ -340,10 +343,6 @@ To verify: Right-click the image > Inspect > check the `alt` attribute in the HT
 **Exercise** Add a second image `research.jpg` to the Projects section showing your research or lab. Use descriptive alt text that explains what the image shows. Save, verify it displays, and test by changing the filename to `/images/missing.jpg` to see the alt text appear. Then change it back to the correct filename.
 
 **Solution:**
-```bash
-cp ~/path/to/research/image.jpg static/images/research.jpg
-```
-
 ```markdown
 ## Projects
 
@@ -362,9 +361,6 @@ The alt text will display as text. Then change back to `/images/research.jpg`.
 **Exercise** Add an SVG diagram to `static/images/diagram.svg`. Reference it in the Projects section with descriptive alt text. Save and verify it displays. Resize your browser window from wide to narrow and notice how the SVG scales smoothly without pixelation.
 
 **Solution:**
-```bash
-cp ~/path/to/diagram.svg static/images/diagram.svg
-```
 
 ```markdown
 ## Projects
@@ -384,13 +380,7 @@ Hugo serves any file type from static without processing. Research portfolios of
 
 ---
 
-**Example** Create a documents directory and add a CV:
-
-```bash
-mkdir -p static/documents
-```
-
-Then link to it in the Contact section:
+**Example** Create a documents directory and add a CV. Then link to it in the Contact section:
 
 ```markdown
 ## Contact
@@ -405,13 +395,6 @@ Save and verify clicking the link opens the PDF.
 **Exercise** Create `static/documents/research-statement.pdf` and add a link in the About Me section with text "Read my research statement". Create `static/data/results.csv` with sample data and link to it from Projects. Save and verify both downloads work.
 
 **Solution:**
-```bash
-mkdir -p static/documents
-mkdir -p static/data
-cp ~/path/to/research-statement.pdf static/documents/research-statement.pdf
-cp ~/path/to/data.csv static/data/results.csv
-```
-
 ```markdown
 ## About Me
 
@@ -448,27 +431,15 @@ Create a file `static/documents/publications.bib` with content:
 
 ---
 
-**Exercise** Create a `static/code/` directory and add a Jupyter notebook `analysis.ipynb` or Python script. Link to it from the Projects section. Save and verify all your downloadable files (CV, research statement, CSV, BibTeX, code) work by clicking each link.
+**Exercise** Create a `static/code/` directory and add a Jupyter notebook `analysis.ipynb` or Python script. Link to it from the Projects section.
 
 **Solution:**
-```bash
-mkdir -p static/code
-cp ~/path/to/analysis.ipynb static/code/analysis.ipynb
-```
 
 ```markdown
 ## Projects
 
 View the [Jupyter notebook](/code/analysis.ipynb) containing the full analysis pipeline.
 ```
-
-Manually test each link:
-- CV PDF should open in browser or download
-- Research statement PDF should download
-- CSV should download or open in spreadsheet program
-- BibTeX should download as text file
-- Jupyter notebook should download
-
 ---
 
 ### Adding badges and shields
@@ -647,7 +618,7 @@ Click the play button on embedded videos - they should play inline.
 
 ---
 
-### Using the gist shortcode
+### (Optional) Using the gist shortcode
 
 The gist shortcode embeds GitHub Gists using the username and gist ID. GitHub Gists are simple code snippet repositories. Each Gist has a unique ID that appears in its URL.
 
@@ -708,68 +679,24 @@ Gallery images can showcase research photos, lab equipment, conference posters, 
 ## Projects
 
 {{< gallery >}}
-{{< figure src="/images/experiment1.jpg" caption="Initial setup" >}}
-{{< figure src="/images/experiment2.jpg" caption="Data collection" >}}
-{{< figure src="/images/results.jpg" caption="Final results" >}}
+{{< figure src="/images/stock1.jpg" caption="Initial setup" >}}
 {{< /gallery >}}
 
-{{< load-photoswipe >}}
 ```
-
-Note: The `{{< load-photoswipe >}}` shortcode must be called once per page to enable the lightbox functionality.
 
 ---
 
-**Exercise** Add three related images to `static/images/`. Create a gallery in your Projects section with all three images, each with a descriptive caption. Add the `load-photoswipe` shortcode at the bottom of your page. Save and verify the gallery displays as a grid.
-
-**Solution:**
-```bash
-cp ~/images/lab1.jpg static/images/lab1.jpg
-cp ~/images/lab2.jpg static/images/lab2.jpg
-cp ~/images/lab3.jpg static/images/lab3.jpg
-```
+**Exercise** Add another image to the gallary.
 
 ```markdown
 ## Projects
 
-### Laboratory Facilities
-
 {{< gallery >}}
-{{< figure src="/images/lab1.jpg" caption="Main sequencing facility" >}}
-{{< figure src="/images/lab2.jpg" caption="Computational analysis workstations" >}}
-{{< figure src="/images/lab3.jpg" caption="Sample preparation area" >}}
+{{< figure src="/images/stock1.jpg" caption="Initial setup" >}}
+{{< figure src="/images/stock2.jpg" caption="Processing" >}}
+{{< figure src="/images/stock3.jpg" caption="Final Celebration" >}}
 {{< /gallery >}}
 
-<!-- At the bottom of _index.md -->
-{{< load-photoswipe >}}
-```
-
----
-
-**Exercise** Click on one of the gallery images and verify it opens in a lightbox overlay. Test the arrow navigation to move between images in the lightbox.
-
-**Solution:**
-Click any gallery image - it should open full screen with navigation arrows. Test the left/right arrows or swipe on mobile.
-
----
-
-**Exercise** Add a second gallery to a different section with different images. Save and verify both galleries work independently with the lightbox.
-
-**Solution:**
-```bash
-cp ~/images/poster1.jpg static/images/poster1.jpg
-cp ~/images/poster2.jpg static/images/poster2.jpg
-```
-
-```markdown
-## Publications
-
-### Conference Presentations
-
-{{< gallery >}}
-{{< figure src="/images/poster1.jpg" caption="ISMB 2024 poster presentation" >}}
-{{< figure src="/images/poster2.jpg" caption="Computational Biology Workshop poster" >}}
-{{< /gallery >}}
 ```
 
 ---
@@ -782,7 +709,7 @@ The columns shortcode uses opening `{{< columns >}}` and closing `{{< endcolumn 
 
 ---
 
-**Exercise** Create a two-column comparison in your Projects section showing two different research methods or approaches. Include a heading and description in each column. Save and verify they appear side by side on wide screens. Resize your browser window to narrow and verify the columns stack vertically.
+**Example** Create a two-column comparison in your Projects section showing two different research methods or approaches. Include a heading and description in each column. Save and verify they appear side by side on wide screens. Resize your browser window to narrow and verify the columns stack vertically.
 
 **Solution:**
 ```markdown
@@ -806,11 +733,8 @@ The columns shortcode uses opening `{{< columns >}}` and closing `{{< endcolumn 
 - Requires large datasets
 - Black box models
 
-{{< endcolumn >}}
+{{< endcolumns >}}
 ```
-
-Open browser developer tools (F12), toggle device toolbar to mobile view. The columns should stack vertically.
-
 ---
 
 **Exercise** Add images to each column using the figure shortcode. Save and verify the images display properly within the column layout. Create another columns section comparing "Current Work" and "Future Directions" and test that both work correctly.
@@ -831,7 +755,7 @@ Uses established statistical methods for data analysis.
 
 Automated feature extraction and pattern recognition.
 
-{{< endcolumn >}}
+{{< endcolumns >}}
 ```
 
 Second columns section:
@@ -863,7 +787,7 @@ Second columns section:
 
 The details shortcode creates collapsible sections with a clickable title. The content is hidden by default and expands when clicked. This is perfect for publications where you want to show just titles initially, with full details available on demand.
 
-The details shortcode uses `{{% %}}` delimiters (note the percent signs) because it needs to process markdown content inside. The syntax is: `{{% details "Title text" %}}content{{% /details %}}`
+The details shortcode uses `{{< >}}` delimiters (note the angle brackets). The syntax is: `{{< details "Title text" >}}content{{< /details >}}`
 
 ---
 
@@ -873,7 +797,7 @@ The details shortcode uses `{{% %}}` delimiters (note the percent signs) because
 ```markdown
 ## Publications
 
-{{% details "Deep Learning Methods for Protein Structure Prediction (2024)" %}}
+{{< details "Deep Learning Methods for Protein Structure Prediction (2024)" >}}
 
 **Authors:** Smith, J., Doe, J., Brown, A.
 
@@ -885,7 +809,7 @@ The details shortcode uses `{{% %}}` delimiters (note the percent signs) because
 
 [Download PDF](/documents/protein-structure-2024.pdf)
 
-{{% /details %}}
+{{< /details >}}
 ```
 
 Click the title text - content should expand. Click again - content should collapse.
@@ -898,23 +822,23 @@ Click the title text - content should expand. Click again - content should colla
 ```markdown
 ## Publications
 
-{{% details "Deep Learning Methods for Protein Structure Prediction (2024)" %}}
+{{< details "Deep Learning Methods for Protein Structure Prediction (2024)" >}}
 **Authors:** Smith, J., Doe, J., Brown, A.
 **DOI:** [10.1038/s41592-024-01234-5](https://doi.org/10.1038/s41592-024-01234-5)
 [Download PDF](/documents/protein-structure-2024.pdf)
-{{% /details %}}
+{{< /details >}}
 
-{{% details "Statistical Analysis of Multi-Omics Data (2023)" %}}
+{{< details "Statistical Analysis of Multi-Omics Data (2023)" >}}
 **Authors:** Smith, J., Lee, K.
 **DOI:** [10.1093/bioinformatics/btab234](https://doi.org/10.1093/bioinformatics/btab234)
 [Download PDF](/documents/multi-omics-2023.pdf)
-{{% /details %}}
+{{< /details >}}
 
-{{% details "Computational Methods in Systems Biology (2023)" %}}
+{{< details "Computational Methods in Systems Biology (2023)" >}}
 **Authors:** Doe, J., Smith, J., Chen, L.
 **DOI:** [10.1016/j.csbj.2023.01.234](https://doi.org/10.1016/j.csbj.2023.01.234)
 [Download PDF](/documents/systems-bio-2023.pdf)
-{{% /details %}}
+{{< /details >}}
 ```
 
 FAQ section:
@@ -923,17 +847,17 @@ FAQ section:
 
 ### Frequently Asked Questions
 
-{{% details "Are you accepting graduate students?" %}}
+{{< details "Are you accepting graduate students?" >}}
 Yes, I am currently accepting PhD students for Fall 2025. Ideal candidates should have a strong background in computer science or statistics and an interest in computational biology.
-{{% /details %}}
+{{< /details >}}
 
-{{% details "Do you offer internships?" %}}
+{{< details "Do you offer internships?" >}}
 I occasionally host summer interns. Undergraduate and Master's students interested in research should contact me in January for summer opportunities.
-{{% /details %}}
+{{< /details >}}
 
-{{% details "What programming languages should I know?" %}}
+{{< details "What programming languages should I know?" >}}
 Proficiency in Python is essential. Experience with R, Julia, or other scientific computing languages is a plus. Familiarity with deep learning frameworks like PyTorch or TensorFlow is helpful.
-{{% /details %}}
+{{< /details >}}
 ```
 
 ---

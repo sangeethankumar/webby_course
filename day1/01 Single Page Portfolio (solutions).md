@@ -8,6 +8,8 @@ Here we will see:
 - how a single-page homepage is created
 - how themes control the appearance of the site
 
+![Session 1](s1_end.png)
+
 ---
 
 ## Section 1: Initial Setup
@@ -143,8 +145,28 @@ Themes come with their own set of configurable options. These options let custom
 
 ---
 
-**Example** Open the `hugo.toml` file and add the module configuration to import the Beautiful Hugo theme, then start the server.
+**Example** Open the `hugo.toml` file and add the module configuration to import the Ananke theme, then start the server.
 
+```toml
+[module]
+[[module.imports]]
+path = "github.com/theNewDynamic/gohugo-theme-ananke/v2"
+```
+---
+
+**Exercise** Change the theme to Coder.
+
+**Solution:**
+```toml
+[module]
+[[module.imports]]
+path = "github.com/luizdepra/hugo-coder"
+```
+---
+
+**Exercise** Change the theme to Beautifulhugo.
+
+**Solution:**
 ```toml
 [module]
 [[module.imports]]
@@ -152,16 +174,6 @@ path = "github.com/halogenica/beautifulhugo"
 ```
 ---
 
-**Exercise** Restart the server (if the server is not running) or refresh the browser at `http://localhost:1313/` and verify the page now shows theme styling instead of "Page Not Found". The page will be empty but should have a header and footer from the theme.
-
-**Solution:**
-```bash
-hugo server -D
-```
-
-![Beautifulhugo](s1_beautifulhugo.png)
-
----
 
 **Exercise** Add `title = 'Your Name - Portfolio'` to the top of `hugo.toml` (before the `[module]` section), restart the server, and verify the title appears in the site header and browser tab.
 
@@ -174,8 +186,6 @@ title = 'Your Name - Portfolio'
 path = "github.com/halogenica/beautifulhugo"
 ```
 
-![Your Name - Portfolio](s1_name.png)
-
 ---
 
 ## Section 2: Creating Homepage
@@ -183,6 +193,9 @@ path = "github.com/halogenica/beautifulhugo"
 Now that the site has a working theme, content can be created that will actually display. For a single-page portfolio, only one content file called `_index.md` is needed. This file becomes the homepage.
 
 This section shows how to create the homepage file, add paragraph content, and configure front matter settings. The focus is on writing simple paragraph text without using headings, lists, or links.
+
+![Content](s1_content_index.png)
+
 
 | Command | Description |
 |---------|-------------|
@@ -200,6 +213,7 @@ The file named `_index.md` defines the homepage of the site. Hugo treats this fi
 
 Hugo provides a command to create content files with the correct front matter automatically. This avoids mistakes that can happen when creating files manually.
 
+
 ---
 
 **Example** With the server running in one terminal, open a new terminal window, navigate to the `my-portfolio` directory, and create the homepage file.
@@ -210,36 +224,33 @@ hugo new _index.md
 
 ---
 
-**Exercise** Open `content/_index.md` in a text editor and examine the front matter that Hugo automatically added between the `---` delimiters. You should see fields like `title`, `date`, and `draft`.
+**Exercise** Open `content/_index.md` in a text editor and examine the front matter that Hugo automatically added between the `+++` delimiters. You should see fields like `title`, `date`, and `draft`.
 
 **Solution:**
 Open `content/_index.md` - no commands needed.
 
 ---
 
-**Exercise** Keep both terminal windows visible - one running the server and one for executing commands. Practice switching between them to get comfortable with the workflow.
-
-**Solution:**
-Arrange terminal windows - no commands needed.
+Keep both terminal windows visible - one running the server and one for executing commands. Practice switching between them to get comfortable with the workflow.
 
 ---
 
 ### Adding content
 
-With the homepage file created, paragraph content can now be added that will display in the browser. Content is written below the front matter (after the second `---` line).
+With the homepage file created, paragraph content can now be added that will display in the browser. Content is written below the front matter (after the second `+++` line).
 
-For this workshop, focus on writing simple paragraphs. No headings, lists, or links are needed - just plain paragraph text.
+For this workshop, focus on writing simple paragraphs. No headings, lists, or links are needed. Just plain paragraph text.
 
 ---
 
 **Example** In `content/_index.md`, add a self-introduction paragraph below the front matter, save the file, and check the browser. The paragraph should appear on the page.
 
 ```markdown
----
-title: "Home"
-date: 2025-01-10T12:00:00+01:00
-draft: true
----
++++
+date = '2026-01-12T19:03:27+01:00'
+draft = false
+title = ''
++++
 
 I am a researcher working on interesting problems in data science and machine learning. This is my portfolio website where I share information about my work and projects.
 ```
@@ -268,7 +279,7 @@ Currently, I am working on integrating multi-omics data to predict disease outco
 
 ### Setting up homepage front matter
 
-Front matter is a block of information at the top of the content file. It sits between two lines of three dashes (`---`). Hugo reads this information to understand how to handle the page.
+Front matter is a block of information at the top of the content file. It sits between two lines of three dashes (`+++`). Hugo reads this information to understand how to handle the page.
 
 Front matter settings control metadata like the page title, whether content is published or a draft, and other page-specific options.
 
@@ -276,21 +287,12 @@ Front matter settings control metadata like the page title, whether content is p
 
 **Example** Change the `draft` setting from `true` to `false` in the front matter, save the file, and verify the page still displays (this confirms the content is no longer marked as a draft).
 
-```yaml
----
-title: "Home"
-date: 2025-01-10T12:00:00+01:00
-draft: false
----
-```
-
----
-
-**Exercise** Change the `title` in the front matter to something more descriptive like `"Your Name - Portfolio"`, save the file, and verify the new title appears in the browser tab.
-
-**Solution:**
-```yaml
-title: "Jane Smith - Portfolio"
+```toml
++++
+date = '2026-01-12T19:03:27+01:00'
+draft = false
+title = ''
++++
 ```
 
 ---
@@ -309,6 +311,8 @@ I am proficient in Python, R, and various bioinformatics tools. I enjoy collabor
 The portfolio now has content and structure. This section covers customization options that make the portfolio more professional and personalized. This includes configuring theme-specific settings and exploring different theme options.
 
 Theme configuration lets you adapt the appearance and functionality to match your needs without editing code or templates.
+
+![Customizing](s1_end.png)
 
 | TOML Syntax | Description |
 |-------------|-------------|
@@ -342,18 +346,6 @@ subtitle = "Researcher and Data Scientist"
 ```toml
 subtitle = "Computational Biologist | Machine Learning Researcher"
 ```
-
----
-
-**Exercise** Add `navbar-col = "#F5F5F5"` as a parameter below `subtitle` to change the navigation bar color to a light gray, save the file, restart the server, and verify the navigation bar color changes.
-
-**Solution:**
-```toml
-[params]
-subtitle = "Computational Biologist | Machine Learning Researcher"
-navbar-col = "#F5F5F5"
-```
-
 ---
 
 ### Configuring author information
@@ -367,10 +359,8 @@ Author information is added to the `[params]` section of `hugo.toml` and appears
 **Example** Add your name and a brief bio to the `[params]` section in `hugo.toml`, save the file, restart the server, and verify the information appears on the site.
 
 ```toml
-[params]
-subtitle = "Researcher and Data Scientist"
-author = "Your Name"
-bio = "I am a researcher working on data science and machine learning problems."
+[params.author]
+name = "Your Name"
 ```
 
 ---

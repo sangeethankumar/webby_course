@@ -1,4 +1,4 @@
-# Deploying Your Hugo Site to GitHub Pages
+# Deploying Your Hugo Site to GitHub Pages - SOLUTIONS
 
 Deployment means making your website accessible on the internet so others can visit it. Until now, your Hugo site has only existed on your local computer. GitHub Pages provides free hosting for static websites, making it an ideal platform for Hugo sites.
 
@@ -189,9 +189,31 @@ Go back to the "Actions" tab. The workflow should automatically run again. Wait 
 3. Your content is visible on the homepage
 4. The site title appears in the browser tab
 
+**Solution:**
+Your live site should be accessible at: `https://YOUR-USERNAME.github.io/my-portfolio/`
+
+Expected results:
+1. ✅ Page loads with Beautiful Hugo theme styling
+2. ✅ Navigation bar appears at top
+3. ✅ Your homepage content displays
+4. ✅ Browser tab shows your site title from `hugo.toml`
+
+If the site doesn't load:
+- Verify the workflow has a green checkmark in Actions tab
+- Check that GitHub Pages source is set to "GitHub Actions" in Settings → Pages
+- Verify your `baseURL` in `hugo.toml` matches the GitHub Pages URL exactly (including trailing slash)
+
 ---
 
 **Exercise** Bookmark your GitHub Pages URL (https://YOUR-USERNAME.github.io/my-portfolio/). Keep this tab open. You will use this URL throughout the workshop to verify changes.
+
+**Solution:**
+Use your browser's bookmark feature (Ctrl+D or Cmd+D) to save:
+```
+https://YOUR-USERNAME.github.io/my-portfolio/
+```
+
+Keep this tab open and positioned next to your text editor for easy reference throughout the workshop.
 
 ---
 
@@ -243,12 +265,75 @@ These environment variables define which versions of tools to install. The workf
 3. Verify the log shows your specified Hugo version (look for "Hugo: v0.140.0" or similar)
 4. Refresh your live site and verify it still loads correctly
 
+**Solution:**
+
+In `.github/workflows/hugo.yml`, change:
+```yaml
+env:
+  DART_SASS_VERSION: 1.97.2
+  GO_VERSION: 1.25.5
+  HUGO_VERSION: 0.140.0
+  NODE_VERSION: 24.12.0
+  TZ: Europe/Oslo
+```
+
+Commands:
+```bash
+git add .github/workflows/hugo.yml
+git commit -m "Update Hugo version"
+git push
+```
+
+Verification:
+1. Go to Actions tab → See new workflow run starting
+2. Wait for green checkmark (30-90 seconds)
+3. Click the workflow run → Click "build" job
+4. Expand "Verify installations" step
+5. Look for output line: `Hugo: v0.140.0/extended linux/amd64 BuildDate=...`
+6. Refresh live site → Verify it loads correctly
+
+Expected log output:
+```
+Dart Sass: 1.97.2 compiled with dart2js 3.x.x
+Go: go version go1.25.5 linux/amd64
+Hugo: v0.140.0/extended linux/amd64 BuildDate=...
+Node.js: v24.12.0
+```
+
 ---
 
 **Exercise** Change the `TZ` environment variable to your local timezone (like `America/New_York`, `Asia/Tokyo`, or `Europe/London`). Commit with message "Update timezone", push, and verify:
 1. Workflow completes successfully (green checkmark)
 2. In the build job logs, the timezone is reflected in timestamps
 3. Your live site still works correctly
+
+**Solution:**
+
+In `.github/workflows/hugo.yml`, change:
+```yaml
+env:
+  DART_SASS_VERSION: 1.97.2
+  GO_VERSION: 1.25.5
+  HUGO_VERSION: 0.140.0
+  NODE_VERSION: 24.12.0
+  TZ: America/New_York
+```
+
+Commands:
+```bash
+git add .github/workflows/hugo.yml
+git commit -m "Update timezone"
+git push
+```
+
+Verification:
+1. Actions tab → New workflow run appears
+2. Green checkmark after completion
+3. Click workflow → "build" job
+4. Look at timestamps in any step - they should reflect your timezone
+5. Refresh live site → Still works
+
+Note: The timezone primarily affects timestamps in the build logs and any date/time operations during the build process.
 
 ---
 
@@ -274,6 +359,58 @@ Commit with message "Add debug step to show files", push, and verify:
 3. Verify you can see your repository files listed in the output (hugo.toml, content/, .github/, etc.)
 4. Refresh your live site and verify it still works
 
+**Solution:**
+
+In `.github/workflows/hugo.yml`, find the "Checkout" step and add the debug step immediately after it:
+
+```yaml
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      # ... environment variables ...
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          submodules: recursive
+          fetch-depth: 0
+      - name: Debug - Show repository contents
+        run: |
+          echo "Current directory: $(pwd)"
+          echo "Files in repository:"
+          ls -la
+      - name: Setup Go
+        # ... rest of workflow ...
+```
+
+Commands:
+```bash
+git add .github/workflows/hugo.yml
+git commit -m "Add debug step to show files"
+git push
+```
+
+Verification:
+1. Actions tab → New workflow run
+2. Green checkmark after completion
+3. Click workflow → "build" job
+4. Find and expand "Debug - Show repository contents" step
+5. Should see output like:
+```
+Current directory: /home/runner/work/my-portfolio/my-portfolio
+Files in repository:
+total 32
+drwxr-xr-x  7 runner docker 4096 Jan 12 10:00 .
+drwxr-xr-x  3 runner docker 4096 Jan 12 10:00 ..
+drwxr-xr-x  2 runner docker 4096 Jan 12 10:00 archetypes
+drwxr-xr-x  2 runner docker 4096 Jan 12 10:00 content
+drwxr-xr-x  3 runner docker 4096 Jan 12 10:00 .github
+-rw-r--r--  1 runner docker  234 Jan 12 10:00 hugo.toml
+...
+```
+6. Refresh live site → Still works
+
 ---
 
 **Exercise** Add another debug step after "Build the site" to show what files were generated. Add this step after the "Build the site" step:
@@ -290,6 +427,51 @@ Commit with message "Add debug step to show built files", push, and verify:
 2. In the build logs, expand the "Debug - Show built files" step
 3. Verify you see HTML files, CSS files, and other assets in the public/ directory listing
 4. Live site still works correctly
+
+**Solution:**
+
+In `.github/workflows/hugo.yml`, find the "Build the site" step and add the debug step immediately after it:
+
+```yaml
+- name: Build the site
+  run: |
+    hugo \
+      --gc \
+      --minify \
+      --baseURL "${{ steps.pages.outputs.base_url }}/" \
+      --cacheDir "${{ runner.temp }}/hugo_cache"
+- name: Debug - Show built files
+  run: |
+    echo "Built site files in public/ directory:"
+    ls -la public/
+- name: Cache save
+  # ... rest of workflow ...
+```
+
+Commands:
+```bash
+git add .github/workflows/hugo.yml
+git commit -m "Add debug step to show built files"
+git push
+```
+
+Verification:
+1. Actions tab → New workflow run
+2. Green checkmark
+3. Click workflow → "build" job
+4. Expand "Debug - Show built files" step
+5. Should see output showing generated HTML, CSS, JS files:
+```
+Built site files in public/ directory:
+total 248
+drwxr-xr-x 8 runner docker  4096 Jan 12 10:05 public
+drwxr-xr-x 2 runner docker  4096 Jan 12 10:05 css
+drwxr-xr-x 2 runner docker  4096 Jan 12 10:05 js
+-rw-r--r-- 1 runner docker 12345 Jan 12 10:05 index.html
+-rw-r--r-- 1 runner docker  8192 Jan 12 10:05 sitemap.xml
+...
+```
+6. Refresh live site → Still works
 
 ---
 
@@ -317,6 +499,63 @@ The "Build the site" step runs the Hugo command with several flags. You can modi
 
 Now add `--minify` back to the build command, commit with message "Restore minify flag", push, and verify workflow succeeds and site still works.
 
+**Solution:**
+
+First, remove `--minify`:
+
+In `.github/workflows/hugo.yml`:
+```yaml
+- name: Build the site
+  run: |
+    hugo \
+      --gc \
+      --baseURL "${{ steps.pages.outputs.base_url }}/" \
+      --cacheDir "${{ runner.temp }}/hugo_cache"
+```
+
+Commands:
+```bash
+git add .github/workflows/hugo.yml
+git commit -m "Test build without minify"
+git push
+```
+
+Verification:
+1. Actions tab → New workflow run
+2. Green checkmark
+3. Click workflow → "build" job → Expand "Build the site"
+4. Command shown should be:
+```
+hugo --gc --baseURL "https://YOUR-USERNAME.github.io/my-portfolio/" --cacheDir "/tmp/hugo_cache"
+```
+(no --minify flag)
+5. Refresh live site → Still works (HTML source may have more whitespace if you inspect)
+
+Then, restore `--minify`:
+
+In `.github/workflows/hugo.yml`:
+```yaml
+- name: Build the site
+  run: |
+    hugo \
+      --gc \
+      --minify \
+      --baseURL "${{ steps.pages.outputs.base_url }}/" \
+      --cacheDir "${{ runner.temp }}/hugo_cache"
+```
+
+Commands:
+```bash
+git add .github/workflows/hugo.yml
+git commit -m "Restore minify flag"
+git push
+```
+
+Verification:
+1. New workflow run → Green checkmark
+2. Build log shows `--minify` flag back in command
+3. Live site still works
+
 ---
 
 ### Understanding Workflow Triggers
@@ -330,6 +569,29 @@ The workflow has two triggers: it runs when you push to the main branch (`push:`
 2. The workflow run shows "workflow_dispatch" as the trigger event (not "push")
 3. Your live site is unchanged (since no code changed)
 4. This demonstrates you can trigger deployments manually without pushing code
+
+**Solution:**
+
+Steps:
+1. Go to your repository on GitHub
+2. Click "Actions" tab
+3. In the left sidebar, click "Build and deploy"
+4. On the right side, click the "Run workflow" dropdown button
+5. Select branch: "main"
+6. Click green "Run workflow" button
+7. A new workflow run appears immediately
+
+Verification:
+1. Workflow run appears in the list
+2. After ~30-90 seconds, green checkmark appears
+3. Click on the workflow run title
+4. Under the run title, you'll see "workflow_dispatch" instead of commit message
+5. Refresh live site → No changes (expected, since no code changed)
+
+This is useful for:
+- Re-deploying without making changes
+- Testing the deployment pipeline
+- Manually triggering after fixing GitHub Pages settings
 
 ---
 
@@ -369,6 +631,39 @@ Save, commit with message "Add information about ML skills", push, and verify:
 3. Refresh your live site
 4. Verify the new paragraph appears on your homepage
 
+**Solution:**
+
+In `content/_index.md`, add to the end (after your existing content, before any closing delimiters):
+
+```markdown
+---
+title: "Home"
+date: 2025-01-10T12:00:00+01:00
+draft: false
+---
+
+[Your existing content here...]
+
+I am particularly interested in machine learning applications and have experience working with Python and data visualization libraries.
+```
+
+Commands:
+```bash
+git add content/_index.md
+git commit -m "Add information about ML skills"
+git push
+```
+
+Verification:
+1. Actions tab → New workflow run starts immediately
+2. Wait for green checkmark (~30-90 seconds)
+3. Go to your live site tab
+4. Refresh the page (Ctrl+R or Cmd+R)
+5. Scroll to bottom of homepage
+6. ✅ New paragraph appears: "I am particularly interested in machine learning..."
+
+Time the cycle: Start timer at `git push`, stop when you see the change live. Typical time: 30-90 seconds total.
+
 ---
 
 **Exercise** Edit existing text on your homepage. Change a sentence, fix a typo, or reword something. Commit with message "Update homepage text", push, and verify:
@@ -377,9 +672,59 @@ Save, commit with message "Add information about ML skills", push, and verify:
 3. Your edit appears on the live site
 4. Time how long the complete cycle takes from push to seeing the change live
 
+**Solution:**
+
+In `content/_index.md`, modify any existing sentence. For example, change:
+```markdown
+I am a researcher working on interesting problems in data science.
+```
+To:
+```markdown
+I am a computational researcher specializing in data science and machine learning.
+```
+
+Commands:
+```bash
+git add content/_index.md
+git commit -m "Update homepage text"
+git push
+```
+
+Verification:
+1. Actions tab → New workflow run
+2. Green checkmark after ~30-90 seconds
+3. Refresh live site
+4. ✅ Modified text appears
+
+Timing exercise:
+- Start stopwatch when you run `git push`
+- Stop when you see the change on the live site
+- Typical time: 30-90 seconds (varies based on GitHub Actions queue)
+
 ---
 
 **Exercise** Add another paragraph about your educational background. Commit with message "Add education background", push, and verify the complete cycle (workflow runs, completes with green check, change appears live).
+
+**Solution:**
+
+In `content/_index.md`, add:
+
+```markdown
+I hold a PhD in Computer Science from Stanford University, where I focused on machine learning applications in computational biology. Prior to that, I completed my undergraduate degree in Mathematics and Computer Science.
+```
+
+Commands:
+```bash
+git add content/_index.md
+git commit -m "Add education background"
+git push
+```
+
+Verification:
+1. Actions tab → Workflow runs
+2. Green checkmark appears
+3. Refresh live site
+4. ✅ Education paragraph appears on homepage
 
 ---
 
@@ -401,6 +746,35 @@ Commit with message "Update site title", push, and verify:
 3. Refresh your live site
 4. Verify the new title appears in the browser tab and site header
 
+**Solution:**
+
+In `hugo.toml`, change the title line:
+
+```toml
+baseURL = 'https://YOUR-USERNAME.github.io/my-portfolio/'
+title = 'Jane Smith - Data Science Portfolio'
+
+[module]
+[[module.imports]]
+path = "github.com/halogenica/beautifulhugo"
+
+[params]
+# ... rest of config ...
+```
+
+Commands:
+```bash
+git add hugo.toml
+git commit -m "Update site title"
+git push
+```
+
+Verification:
+1. Actions tab → Workflow runs → Green checkmark
+2. Refresh live site
+3. ✅ Browser tab shows: "Jane Smith - Data Science Portfolio"
+4. ✅ Site header shows the new title
+
 ---
 
 **Exercise** If you have a `subtitle` parameter in the `[params]` section, update it to describe your work. If you don't have one, add it:
@@ -414,6 +788,40 @@ Commit with message "Update subtitle", push, and verify:
 1. Workflow completes successfully
 2. Subtitle appears on your live site in the header area
 
+**Solution:**
+
+In `hugo.toml`, add or modify in the `[params]` section:
+
+```toml
+[params]
+subtitle = "Machine Learning Engineer | Data Scientist"
+author = "Your Name"
+# ... rest of params ...
+```
+
+If `[params]` doesn't exist, add it after the `[module]` section:
+
+```toml
+[module]
+[[module.imports]]
+path = "github.com/halogenica/beautifulhugo"
+
+[params]
+subtitle = "Machine Learning Engineer | Data Scientist"
+```
+
+Commands:
+```bash
+git add hugo.toml
+git commit -m "Update subtitle"
+git push
+```
+
+Verification:
+1. Actions tab → Workflow runs → Green checkmark
+2. Refresh live site
+3. ✅ Subtitle appears below site title in header: "Machine Learning Engineer | Data Scientist"
+
 ---
 
 **Exercise** Make multiple changes at once: update your site title AND add/modify a paragraph in your content. Stage both files with `git add hugo.toml content/_index.md`, commit with message "Update site title and content", push, and verify:
@@ -421,6 +829,36 @@ Commit with message "Update subtitle", push, and verify:
 2. Workflow completes successfully
 3. Both changes appear on the live site after deployment
 4. In your GitHub repository, view the commit history to see one commit containing both file changes
+
+**Solution:**
+
+1. In `hugo.toml`, change the title:
+```toml
+title = 'Dr. Jane Smith - Research Portfolio'
+```
+
+2. In `content/_index.md`, add or modify content:
+```markdown
+My research interests span machine learning, computational biology, and data visualization. I am particularly focused on developing interpretable AI models for healthcare applications.
+```
+
+Commands:
+```bash
+git add hugo.toml content/_index.md
+git commit -m "Update site title and content"
+git push
+```
+
+Verification:
+1. Actions tab → Only ONE new workflow run appears
+2. Green checkmark after completion
+3. Refresh live site
+4. ✅ Title changed in browser tab and header
+5. ✅ New/modified content appears on homepage
+6. Go to repository → Click on commit count (e.g., "42 commits")
+7. ✅ Most recent commit shows both files changed
+
+This demonstrates efficiency: multiple changes can be deployed in a single cycle.
 
 ---
 
@@ -432,6 +870,78 @@ By now you have followed the CD workflow many times. This subsection reinforces 
 
 **Exercise** Make a small change to your content (add a sentence or fix punctuation). Before committing, run `git status` to see which files changed (should show `content/_index.md` as modified). Stage the file with `git add content/_index.md`, then run `git status` again (should show file staged for commit in green). Commit with a descriptive message, run `git status` again (should show "nothing to commit, working tree clean"), then push. Observe how `git status` shows different information at each stage of the workflow.
 
+**Solution:**
+
+1. Edit `content/_index.md` - add a sentence:
+```markdown
+I enjoy collaborating with researchers from diverse backgrounds.
+```
+
+2. Check status before staging:
+```bash
+git status
+```
+Output shows:
+```
+On branch main
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   content/_index.md
+
+no changes added to commit (use "git add" and/or "git commit -a")
+```
+
+3. Stage the file:
+```bash
+git add content/_index.md
+git status
+```
+Output shows:
+```
+On branch main
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        modified:   content/_index.md
+```
+
+4. Commit:
+```bash
+git commit -m "Add sentence about collaboration"
+git status
+```
+Output shows:
+```
+On branch main
+Your branch is ahead of 'origin/main' by 1 commit.
+  (use "git push" to publish your local commits)
+
+nothing to commit, working tree clean
+```
+
+5. Push:
+```bash
+git push
+```
+
+6. Check status after push:
+```bash
+git status
+```
+Output shows:
+```
+On branch main
+Your branch is up to date with 'origin/main'.
+
+nothing to commit, working tree clean
+```
+
+Key observations:
+- Before staging: file shown in red as "modified"
+- After staging: file shown in green as "Changes to be committed"
+- After commit: "nothing to commit" but ahead of origin
+- After push: everything up to date
+
 ---
 
 **Exercise** Make three small changes to different files: one content change in `_index.md`, one config change in `hugo.toml`, and one comment in your workflow file `hugo.yml`. Use `git status` to verify all three files show as modified. Stage all three with `git add .`, commit them together in a single commit with message "Multiple site updates", push, and verify:
@@ -440,12 +950,106 @@ By now you have followed the CD workflow many times. This subsection reinforces 
 3. All changes are included in the deployment
 4. All changes appear on the live site
 
+**Solution:**
+
+1. Make three changes:
+
+In `content/_index.md`:
+```markdown
+I have published research in top-tier conferences and journals.
+```
+
+In `hugo.toml`:
+```toml
+title = 'Dr. Jane Smith - ML Research'
+```
+
+In `.github/workflows/hugo.yml`, add a comment:
+```yaml
+# This workflow builds and deploys the Hugo site to GitHub Pages
+name: Build and deploy
+```
+
+2. Check all files are modified:
+```bash
+git status
+```
+Output should show:
+```
+On branch main
+Changes not staged for commit:
+        modified:   .github/workflows/hugo.yml
+        modified:   content/_index.md
+        modified:   hugo.toml
+```
+
+3. Stage all at once:
+```bash
+git add .
+git status
+```
+Output shows all three in green:
+```
+Changes to be committed:
+        modified:   .github/workflows/hugo.yml
+        modified:   content/_index.md
+        modified:   hugo.toml
+```
+
+4. Commit and push:
+```bash
+git commit -m "Multiple site updates"
+git push
+```
+
+Verification:
+1. Actions tab → ONE workflow run appears (not three)
+2. Green checkmark after completion
+3. Refresh live site
+4. ✅ Title changed
+5. ✅ New content sentence appears
+6. Click the workflow run in Actions
+7. The build still succeeds (comment doesn't affect functionality)
+8. On GitHub, view the commit - shows all 3 files in one commit
+
 ---
 
 **Exercise** Practice the complete workflow one more time with any change you want (content, config, or both). Focus on executing the pattern smoothly without referring to notes: edit → save → `git add` → `git commit -m` → `git push` → watch Actions → refresh live site → verify. This pattern is fundamental to modern web development.
+
+**Solution:**
+
+Choose your own change. Example:
+
+1. Edit `content/_index.md` - add interests:
+```markdown
+Outside of research, I enjoy hiking, photography, and contributing to open source projects.
+```
+
+2. Execute the workflow from memory:
+```bash
+git add content/_index.md
+git commit -m "Add personal interests"
+git push
+```
+
+3. Verify:
+- Actions tab → workflow runs
+- Green checkmark
+- Refresh live site
+- New content appears
+
+Goal: Execute this pattern smoothly in under 2 minutes from edit to verification. This muscle memory is essential for continuous deployment workflows.
+
+Common workflow shortcuts:
+- `git add .` - stages all changes
+- `git commit -am "message"` - stages and commits tracked files in one command
+- Set up VS Code or your editor to run git commands with shortcuts
 
 ---
 
 **Exercise** Visit 3-5 other students' portfolios at their GitHub Pages URLs. Note what you like about each portfolio. Share feedback with your peers about what makes each portfolio effective - consider content clarity, design choices, professional presentation, and technical implementation.
 
+**Solution:**
+
+Visit portfolio URLs in format: `https://USERNAME.github.io/my-portfolio/`
 ---

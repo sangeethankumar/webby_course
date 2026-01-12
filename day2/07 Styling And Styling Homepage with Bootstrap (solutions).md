@@ -1,4 +1,4 @@
-# Styling with Bootstrap
+# Styling with Bootstrap - SOLUTIONS
 
 Bootstrap is a CSS framework that provides pre-built styles for common HTML elements. Instead of writing CSS from scratch, Bootstrap classes can be added directly to HTML tags to style them. This makes it quick to create professional-looking pages without deep CSS knowledge.
 
@@ -56,9 +56,15 @@ Save the file and refresh the browser. The page will look slightly different as 
 
 **Exercise** Look at the heading in your browser and notice it now has a different font than before. This confirms Bootstrap is loaded.
 
+**Solution:**
+The heading should now display in Bootstrap's default font stack (system fonts) instead of the browser's default serif font. The spacing around the heading may also have changed.
+
 ---
 
 **Exercise** Open browser DevTools (F12), go to the Network tab, refresh the page, and verify that `bootstrap.min.css` appears in the list of loaded files.
+
+**Solution:**
+In the Network tab, you should see a file named `bootstrap.min.css` loaded from `cdn.jsdelivr.net`. The file size should be around 200-300KB.
 
 ---
 
@@ -86,9 +92,15 @@ Save the file. The page appearance won't change on desktop, but this ensures pro
 
 **Exercise** Resize your browser window to a narrow width (like a phone screen) and verify the page content adjusts appropriately.
 
+**Solution:**
+When you resize the browser window to a narrow width (300-400px), the content should remain readable and not require horizontal scrolling. Text should wrap appropriately.
+
 ---
 
 **Exercise** Open DevTools, toggle device toolbar (Ctrl+Shift+M), and select a mobile device. Verify the page displays at an appropriate size for the screen.
+
+**Solution:**
+With device toolbar enabled and a mobile device selected (e.g., iPhone 12), the page should display at the device's width without appearing zoomed out. The content should be readable without pinch-to-zoom.
 
 ---
 
@@ -128,13 +140,29 @@ Save and observe the heading is now much larger and more prominent.
 
 **Exercise** Change `display-1` to `display-4`, save, and observe the heading becomes smaller but still larger than a regular h1.
 
+**Solution:**
+```html
+<h1 class="display-4">Research Portfolio</h1>
+```
+
 ---
 
 **Exercise** Add `class="display-2"` to one of your section headings (like `<h2>Skills</h2>`), save, and verify it becomes larger and more prominent.
 
+**Solution:**
+```html
+<h2 class="display-2">Skills</h2>
+```
+
 ---
 
 **Exercise** Change `display-2` to `display-6`, save, and observe how the size changes. Try values between 1 and 6 to see the range of sizes available.
+
+**Solution:**
+```html
+<h2 class="display-6">Skills</h2>
+```
+Then try `display-1`, `display-3`, `display-5` to see the range.
 
 ---
 
@@ -158,13 +186,28 @@ Save and observe the paragraph is larger than normal paragraphs.
 
 **Exercise** Change `fs-3` to `fs-5`, save, and observe the paragraph becomes smaller.
 
+**Solution:**
+```html
+<p class="fs-5">Welcome to my research portfolio.</p>
+```
+
 ---
 
 **Exercise** Add `class="fs-4"` to a different paragraph in your layout, save, and compare it to other paragraphs to see the size difference.
 
+**Solution:**
+```html
+<p class="fs-4">I am a researcher specializing in computational biology.</p>
+```
+
 ---
 
 **Exercise** Add `class="fs-6"` to your footer paragraph, save, and verify it displays smaller than regular text.
+
+**Solution:**
+```html
+<p class="fs-6">Last updated: January 2025</p>
+```
 
 ---
 
@@ -188,13 +231,28 @@ Save and observe the paragraph text is now bold.
 
 **Exercise** Change `fw-bold` to `fw-light`, save, and observe the text becomes thinner.
 
+**Solution:**
+```html
+<p class="fw-light">I specialize in computational biology and machine learning.</p>
+```
+
 ---
 
 **Exercise** Add `class="fw-bold"` to a list item in your Skills section, save, and verify it appears bolder than other list items.
 
+**Solution:**
+```html
+<li class="fw-bold">Python</li>
+```
+
 ---
 
 **Exercise** Combine font size and weight: add `class="fs-4 fw-bold"` to a paragraph, save, and verify it is both larger and bold.
+
+**Solution:**
+```html
+<p class="fs-4 fw-bold">I specialize in computational biology and machine learning.</p>
+```
 
 ---
 
@@ -218,13 +276,28 @@ Save and observe the heading is now centered.
 
 **Exercise** Change `text-center` to `text-end`, save, and observe the heading moves to the right side.
 
+**Solution:**
+```html
+<h1 class="display-1 text-end">Research Portfolio</h1>
+```
+
 ---
 
 **Exercise** Change it back to `text-center`, save, and verify it returns to center.
 
+**Solution:**
+```html
+<h1 class="display-1 text-center">Research Portfolio</h1>
+```
+
 ---
 
 **Exercise** Add `class="text-center"` to a paragraph, save, and verify the paragraph text is centered.
+
+**Solution:**
+```html
+<p class="text-center">Welcome to my research portfolio.</p>
+```
 
 ---
 
@@ -248,13 +321,30 @@ Save and observe the heading displays in all caps even though the HTML has mixed
 
 **Exercise** Change `text-uppercase` to `text-lowercase`, save, and observe all letters become lowercase.
 
+**Solution:**
+```html
+<h2 class="text-lowercase">About Me</h2>
+```
+This will display as "about me".
+
 ---
 
 **Exercise** Change it to `text-capitalize`, save, and observe each word's first letter becomes capitalized.
 
+**Solution:**
+```html
+<h2 class="text-capitalize">About Me</h2>
+```
+This will display as "About Me" (each word capitalized).
+
 ---
 
 **Exercise** Add `class="text-uppercase"` to a paragraph, save, and verify the entire paragraph appears in uppercase.
+
+**Solution:**
+```html
+<p class="text-uppercase">I am a researcher specializing in computational biology.</p>
+```
 
 ---
 
@@ -295,13 +385,30 @@ Save and observe the heading is now blue (or your theme's primary color).
 
 **Exercise** Change `text-primary` to `text-success`, save, and observe the heading becomes green.
 
+**Solution:**
+```html
+<h2 class="text-success">Skills</h2>
+```
+
 ---
 
 **Exercise** Add `class="text-secondary"` to a paragraph, save, and verify it displays in gray.
 
+**Solution:**
+```html
+<p class="text-secondary">Welcome to my research portfolio.</p>
+```
+
 ---
 
 **Exercise** Try different colors: add `text-danger` to one element, `text-warning` to another, and `text-info` to a third. Save and observe the different colors.
+
+**Solution:**
+```html
+<p class="text-danger">This text is red.</p>
+<p class="text-warning">This text is yellow/orange.</p>
+<p class="text-info">This text is light blue.</p>
+```
 
 ---
 
@@ -328,13 +435,37 @@ Save and observe the section has a light gray background with padding.
 
 **Exercise** Change `bg-light` to `bg-primary`, save, and observe the background becomes blue. Note that you may need to add `text-white` to make the text readable on the dark background.
 
+**Solution:**
+```html
+<div class="bg-primary text-white p-3">
+    <h2>About Me</h2>
+    <p>I am a researcher specializing in computational biology.</p>
+</div>
+```
+
 ---
 
 **Exercise** Add `class="bg-warning"` to a different div, save, and verify it has a yellow background.
 
+**Solution:**
+```html
+<div class="bg-warning p-3">
+    <h2>Projects</h2>
+    <p>Here are my current projects.</p>
+</div>
+```
+
 ---
 
 **Exercise** Create a new div around your contact section with `class="bg-dark text-white p-3"`, save, and verify it has a dark background with white text.
+
+**Solution:**
+```html
+<div class="bg-dark text-white p-3">
+    <h2>Contact</h2>
+    <p>Email: name@example.com</p>
+</div>
+```
 
 ---
 
@@ -358,13 +489,31 @@ Save and observe more space appears above the heading.
 
 **Exercise** Change `mt-5` to `mt-2`, save, and observe less space above the heading.
 
+**Solution:**
+```html
+<h2 class="mt-2">Projects</h2>
+```
+
 ---
 
 **Exercise** Add `class="mb-4"` (margin-bottom) to a paragraph, save, and verify more space appears below it.
 
+**Solution:**
+```html
+<p class="mb-4">I am a researcher specializing in computational biology.</p>
+```
+
 ---
 
 **Exercise** Add `class="m-3"` (margin all sides) to a div, save, and observe space appears around all sides of the element.
+
+**Solution:**
+```html
+<div class="m-3 bg-light p-3">
+    <h2>About Me</h2>
+    <p>Content here.</p>
+</div>
+```
 
 ---
 
@@ -391,13 +540,34 @@ Save and observe the text has comfortable space from the edges of the colored ba
 
 **Exercise** Change `p-4` to `p-1`, save, and observe the space inside becomes smaller.
 
+**Solution:**
+```html
+<div class="bg-light p-1">
+    <h2>Contact</h2>
+    <p>Email: name@example.com</p>
+</div>
+```
+
 ---
 
 **Exercise** Change `p-1` to `p-5`, save, and observe more space inside the element.
 
+**Solution:**
+```html
+<div class="bg-light p-5">
+    <h2>Contact</h2>
+    <p>Email: name@example.com</p>
+</div>
+```
+
 ---
 
 **Exercise** Add `class="py-3"` (padding top and bottom only) to a paragraph, save, and verify vertical space appears but not horizontal.
+
+**Solution:**
+```html
+<p class="py-3">I am a researcher specializing in computational biology.</p>
+```
 
 ---
 
@@ -424,13 +594,37 @@ Save and observe the combined effect of background color, text color, padding, m
 
 **Exercise** Add `class="bg-success text-white p-3 mt-5 mb-3"` to a div containing one of your sections, save, and verify all the utilities apply correctly.
 
+**Solution:**
+```html
+<div class="bg-success text-white p-3 mt-5 mb-3">
+    <h2>Skills</h2>
+    <p>My technical skills include Python, R, and JavaScript.</p>
+</div>
+```
+
 ---
 
 **Exercise** Create a new div around your About Me section with `class="bg-light p-4 mb-4"` and add `class="text-center text-primary"` to the heading inside. Save and verify the styling.
 
+**Solution:**
+```html
+<div class="bg-light p-4 mb-4">
+    <h2 class="text-center text-primary">About Me</h2>
+    <p>I am a researcher specializing in computational biology.</p>
+</div>
+```
+
 ---
 
 **Exercise** Experiment by combining different utilities: try `bg-warning text-dark p-5 mt-4` on an element, save, and observe how all the utilities work together.
+
+**Solution:**
+```html
+<div class="bg-warning text-dark p-5 mt-4">
+    <h2>Projects</h2>
+    <p>Check out my recent projects.</p>
+</div>
+```
 
 ---
 
@@ -470,13 +664,30 @@ Save and observe the link now appears as a blue button.
 
 **Exercise** Change `btn-primary` to `btn-success`, save, and observe the button becomes green.
 
+**Solution:**
+```html
+<a href="mailto:name@example.com" class="btn btn-success">Contact Me</a>
+```
+
 ---
 
 **Exercise** Add `class="btn btn-secondary"` to a different link in your Contact section, save, and verify it displays as a gray button.
 
+**Solution:**
+```html
+<a href="https://linkedin.com/in/profile" class="btn btn-secondary">LinkedIn</a>
+```
+
 ---
 
 **Exercise** Try different button variants: add `btn-warning`, `btn-danger`, and `btn-info` to three different links. Save and observe the different colors.
+
+**Solution:**
+```html
+<a href="#" class="btn btn-warning">Warning Button</a>
+<a href="#" class="btn btn-danger">Danger Button</a>
+<a href="#" class="btn btn-info">Info Button</a>
+```
 
 ---
 
@@ -500,13 +711,29 @@ Save and observe the button has a blue border and blue text but no background co
 
 **Exercise** Change `btn-outline-primary` to `btn-outline-success`, save, and observe the border and text become green.
 
+**Solution:**
+```html
+<a href="https://github.com/yourusername" class="btn btn-outline-success">View GitHub</a>
+```
+
 ---
 
 **Exercise** Add both a solid button and an outline button next to each other: `<a class="btn btn-primary">Primary</a> <a class="btn btn-outline-primary">Outline</a>`. Save and compare their appearance.
 
+**Solution:**
+```html
+<a href="#" class="btn btn-primary">Primary</a>
+<a href="#" class="btn btn-outline-primary">Outline</a>
+```
+
 ---
 
 **Exercise** Create an outline danger button with `class="btn btn-outline-danger"` for a link, save, and verify it has a red border with red text.
+
+**Solution:**
+```html
+<a href="#" class="btn btn-outline-danger">Delete</a>
+```
 
 ---
 
@@ -530,13 +757,30 @@ Save and observe the button is larger than default buttons.
 
 **Exercise** Change `btn-lg` to `btn-sm`, save, and observe the button becomes smaller.
 
+**Solution:**
+```html
+<a href="#" class="btn btn-primary btn-sm">Get Started</a>
+```
+
 ---
 
 **Exercise** Add three buttons with different sizes next to each other: one with `btn-lg`, one with no size modifier, and one with `btn-sm`. Save and compare their sizes.
 
+**Solution:**
+```html
+<a href="#" class="btn btn-primary btn-lg">Large</a>
+<a href="#" class="btn btn-primary">Default</a>
+<a href="#" class="btn btn-primary btn-sm">Small</a>
+```
+
 ---
 
 **Exercise** Make your "Contact Me" button large by adding `btn-lg` to its classes, save, and verify it stands out more prominently.
+
+**Solution:**
+```html
+<a href="mailto:name@example.com" class="btn btn-primary btn-lg">Contact Me</a>
+```
 
 ---
 
@@ -560,13 +804,31 @@ Save and observe the button has fully rounded ends.
 
 **Exercise** Remove `rounded-pill` so the button has default Bootstrap rounding, save, and observe the corners are only slightly rounded.
 
+**Solution:**
+```html
+<a href="#" class="btn btn-primary">Contact Me</a>
+```
+
 ---
 
 **Exercise** Add `class="rounded"` to a div with background color, save, and verify the div corners become rounded.
 
+**Solution:**
+```html
+<div class="bg-light p-4 rounded">
+    <h2>About Me</h2>
+    <p>Content here.</p>
+</div>
+```
+
 ---
 
 **Exercise** Add `class="rounded-circle"` to a small div (you'll need to set equal width and height in inline style like `style="width: 100px; height: 100px;"` to see the circle effect). Save and observe it becomes circular.
+
+**Solution:**
+```html
+<div class="bg-primary rounded-circle" style="width: 100px; height: 100px;"></div>
+```
 
 ---
 
@@ -593,16 +855,45 @@ Save and observe the section appears to lift off the page.
 
 **Exercise** Change `shadow` to `shadow-lg`, save, and observe the shadow becomes more pronounced.
 
+**Solution:**
+```html
+<div class="bg-light p-4 shadow-lg">
+    <h2>Featured Project</h2>
+    <p>Description of the project.</p>
+</div>
+```
+
 ---
 
 **Exercise** Change `shadow-lg` to `shadow-sm`, save, and observe the shadow becomes more subtle.
+
+**Solution:**
+```html
+<div class="bg-light p-4 shadow-sm">
+    <h2>Featured Project</h2>
+    <p>Description of the project.</p>
+</div>
+```
 
 ---
 
 **Exercise** Add shadows to your buttons by including `shadow` in their class list: `class="btn btn-primary shadow"`. Save and verify the buttons have more depth.
 
+**Solution:**
+```html
+<a href="mailto:name@example.com" class="btn btn-primary shadow">Contact Me</a>
+```
+
 ---
 
 **Exercise** Create a section with multiple utilities combined: `class="bg-primary text-white p-4 mb-4 rounded shadow-lg"`. Save and observe how all the utilities work together to create a polished appearance.
+
+**Solution:**
+```html
+<div class="bg-primary text-white p-4 mb-4 rounded shadow-lg">
+    <h2>Current Research</h2>
+    <p>I'm investigating machine learning applications in genomics.</p>
+</div>
+```
 
 ---

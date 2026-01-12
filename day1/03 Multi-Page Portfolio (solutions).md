@@ -1,4 +1,4 @@
-# A Multi-Page Portfolio
+# Adding Media to your Portfolio - SOLUTIONS
 
 Hugo creates multiple pages from directories containing `index.md` files. Each directory becomes a page bundle that stores content and resources together. Multiple bundles create a multi-page website structure. Bundles can be nested to create hierarchical URL paths, and menus connect pages through navigation.
 
@@ -20,7 +20,7 @@ This section covers creating a new Hugo site with the Beautiful Hugo theme and s
 
 | Command | Description |
 |---------|-------------|
-| `hugo new site <name>` | Create a new Hugo site with the specified name |
+| `hugo new site <n>` | Create a new Hugo site with the specified name |
 | `cd <directory>` | Navigate into a directory |
 | `hugo mod init <module-path>` | Initialize Hugo Modules for the project |
 | `hugo mod get <module-path>` | Download and add a Hugo module (like a theme) |
@@ -65,6 +65,12 @@ hugo server -D
 
 **Exercise** Stop the server by pressing `Ctrl+C` in the terminal, then restart it with `hugo server -D` to practice the restart process.
 
+**Solution:**
+```bash
+# Press Ctrl+C, then:
+hugo server -D
+```
+
 ---
 
 ### Creating the homepage
@@ -92,9 +98,27 @@ Explore my work using the navigation above.
 
 **Exercise** Navigate to `http://localhost:1313/` and verify the homepage displays with the welcome message.
 
+**Solution:**
+Open browser and navigate to `http://localhost:1313/`. The homepage should display with the theme styling and the welcome message.
+
 ---
 
 **Exercise** Change the name and description in `content/_index.md` to reflect your own background, save the file, and verify the browser automatically updates with your new text.
+
+**Solution:**
+```markdown
+---
+title: "My Portfolio"
+draft: false
+---
+
+# Hello, I'm Jane Smith
+
+I am a Data Scientist specializing in climate modeling and machine learning. My background is in Environmental Science and Statistics.
+
+Explore my work using the navigation above.
+```
+Save the file and the browser should automatically refresh showing your changes.
 
 ---
 
@@ -152,9 +176,22 @@ Git, Jupyter, Docker, LaTeX, Pixi, conda
 
 **Exercise** Navigate to `http://localhost:1313/about/` in a browser and verify the page displays with the content.
 
+**Solution:**
+Navigate to `http://localhost:1313/about/` in browser. The page should display with the About Me content, skills sections, and theme styling.
+
 ---
 
 **Exercise** Change some of the text in the skills section of `content/about/index.md`, save the file, and verify the change appears in the browser.
+
+**Solution:**
+```markdown
+### Programming Languages
+Python, R, C++, Matlab, JavaScript
+
+### Frameworks
+Numpy, pandas, scipy, TensorFlow
+```
+Save the file and the browser should automatically refresh showing the updated skills.
 
 ---
 
@@ -171,6 +208,12 @@ draft: false
 I have worked on several research projects involving data analysis and software development. Below are some of my key projects.
 ```
 
+**Solution:**
+```bash
+mkdir content/projects
+```
+Create `content/projects/index.md` with the content shown, save, then navigate to `http://localhost:1313/projects/`. The projects page should display.
+
 ---
 
 **Exercise** Create directory `content/publications/` with an `index.md` file containing the following content, save the file, then navigate to `http://localhost:1313/publications/` and verify this third page exists:
@@ -186,9 +229,23 @@ draft: false
 My research has resulted in several publications in peer-reviewed journals. These papers cover topics in astronomy, planetary science, and observational techniques.
 ```
 
+**Solution:**
+```bash
+mkdir content/publications
+```
+Create `content/publications/index.md` with the content shown, save, then navigate to `http://localhost:1313/publications/`. The publications page should display.
+
 ---
 
 **Exercise** Try navigating between all three pages (`/about/`, `/projects/`, `/publications/`) to verify they all load independently.
+
+**Solution:**
+Navigate to each URL in the browser:
+- `http://localhost:1313/about/`
+- `http://localhost:1313/projects/`
+- `http://localhost:1313/publications/`
+
+All three pages should load with their respective content.
 
 ---
 
@@ -211,13 +268,38 @@ draft: true
 
 **Exercise** Navigate to `http://localhost:1313/projects/` and verify the page returns a 404 error because draft pages are not published without the `-D` flag.
 
+**Solution:**
+Navigate to `http://localhost:1313/projects/`. You should see a "Page Not Found" or 404 error because the page is marked as draft and the server is running without the `-D` flag.
+
 ---
 
 **Exercise** Change `draft: true` back to `draft: false` in `content/projects/index.md`, save the file, restart the server, then navigate to `http://localhost:1313/projects/` and verify the page now loads correctly.
 
+**Solution:**
+```yaml
+---
+title: "Projects"
+draft: false
+---
+```
+```bash
+# Press Ctrl+C, then:
+hugo server
+```
+Navigate to `http://localhost:1313/projects/`. The page should now display correctly.
+
 ---
 
 **Exercise** Change the `title` in `content/about/index.md` to something different like `"About Me - Background"`, save the file, and verify the new title appears in the browser tab when viewing `/about/`.
+
+**Solution:**
+```yaml
+---
+title: "About Me - Background"
+draft: false
+---
+```
+Save the file, navigate to `http://localhost:1313/about/`, and check the browser tab. The title should show "About Me - Background".
 
 ---
 
@@ -242,17 +324,46 @@ Image files placed in the bundle directory can be referenced using relative path
 
 **Exercise** Navigate to `http://localhost:1313/about/` and verify the image displays on the page.
 
+**Solution:**
+Place image file in `content/about/` directory. Navigate to `http://localhost:1313/about/`. The image should display below the skills section.
+
 ---
 
 **Exercise** Add a second image file `lab-photo.jpg` to `content/about/`, add the image reference `![Lab work](lab-photo.jpg)` below the first one in the markdown file, save, then navigate to `/about/` and verify both images display.
+
+**Solution:**
+Add to `content/about/index.md`:
+```markdown
+![Working with telescope data](research-photo.jpg)
+
+![Lab work](lab-photo.jpg)
+```
+Save the file, navigate to `http://localhost:1313/about/`. Both images should display in order.
 
 ---
 
 **Exercise** Add a file `cv.pdf` to the `content/about/` directory, add `[Download CV](cv.pdf)` at the end of `content/about/index.md`, save the file, then navigate to `/about/`, click the link, and verify the PDF opens or downloads.
 
+**Solution:**
+Add to end of `content/about/index.md`:
+```markdown
+
+[Download CV](cv.pdf)
+```
+Place `cv.pdf` in `content/about/` directory. Save, navigate to `http://localhost:1313/about/`, click the "Download CV" link. The PDF should open in browser or download.
+
 ---
 
 **Exercise** Add another PDF file `research-statement.pdf` to the `content/about/` directory, add the link `[Download Research Statement](research-statement.pdf)` below the first PDF link, save, then navigate to `/about/` and verify both PDF links work correctly.
+
+**Solution:**
+Add to `content/about/index.md`:
+```markdown
+[Download CV](cv.pdf)
+
+[Download Research Statement](research-statement.pdf)
+```
+Place both PDF files in `content/about/` directory. Save, navigate to `http://localhost:1313/about/`. Both links should work.
 
 ---
 
@@ -266,9 +377,24 @@ Resources in one bundle cannot be accessed from other bundles. Each bundle's res
 
 **Exercise** Remove the broken link from `content/projects/index.md`, save the file, and verify that the CV link still works correctly on the `/about/` page.
 
+**Solution:**
+Remove `[Download CV](cv.pdf)` from `content/projects/index.md` and save. Navigate to `http://localhost:1313/about/` and verify the CV link still works. Navigate to `http://localhost:1313/projects/` and verify the broken link is gone.
+
 ---
 
 **Exercise** Add an image file named `photo.jpg` to both `content/about/` and `content/projects/` directories, add `![Photo](photo.jpg)` to both `index.md` files, save both files, then verify that each page displays its own version of the file without conflict.
+
+**Solution:**
+Place different `photo.jpg` files in both `content/about/` and `content/projects/` directories.
+
+Add to both `content/about/index.md` and `content/projects/index.md`:
+```markdown
+![Photo](photo.jpg)
+```
+
+Navigate to `http://localhost:1313/about/` - should show the about directory's photo.
+Navigate to `http://localhost:1313/projects/` - should show the projects directory's photo.
+Each page displays its own version independently.
 
 ---
 
@@ -318,9 +444,17 @@ weight = 3
 
 **Exercise** Save the file, reload any page in a browser, and verify three links ("About", "Projects", "Publications") now appear in navigation.
 
+**Solution:**
+Save `hugo.toml`. Reload any page in the browser. The navigation bar should now display three links: "About", "Projects", and "Publications" in that order.
+
 ---
 
 **Exercise** Click each navigation link to verify they all navigate to the correct pages.
+
+**Solution:**
+Click "About" - should navigate to `http://localhost:1313/about/`
+Click "Projects" - should navigate to `http://localhost:1313/projects/`
+Click "Publications" - should navigate to `http://localhost:1313/publications/`
 
 ---
 
@@ -343,13 +477,44 @@ weight = 1
 
 **Exercise** Verify "Publications" now appears first in the menu before "About" and "Projects".
 
+**Solution:**
+Reload the page. The navigation should now show "Publications" first, followed by "About" and "Projects".
+
 ---
 
 **Exercise** Change "About" weight to 3 in `hugo.toml`, save, reload, and verify the menu order changed again.
 
+**Solution:**
+```toml
+[[menu.main]]
+name = "About"
+url = "/about/"
+weight = 3
+```
+Save and reload. The navigation should now show "Publications", "Projects", then "About".
+
 ---
 
 **Exercise** Restore a logical weight order (About=1, Projects=2, Publications=3) in `hugo.toml`, save the file, and verify the menu displays in the preferred order.
+
+**Solution:**
+```toml
+[[menu.main]]
+name = "About"
+url = "/about/"
+weight = 1
+
+[[menu.main]]
+name = "Projects"
+url = "/projects/"
+weight = 2
+
+[[menu.main]]
+name = "Publications"
+url = "/publications/"
+weight = 3
+```
+Save and reload. The navigation should show "About", "Projects", "Publications" in that order.
 
 ---
 
@@ -374,13 +539,27 @@ The homepage can contain direct links to main sections. These links provide an a
 
 **Exercise** Save and reload the homepage. Verify the links appear below the introduction.
 
+**Solution:**
+Save `content/_index.md` and navigate to `http://localhost:1313/`. The "Explore My Work" section with three links should appear below the introduction text.
+
 ---
 
 **Exercise** Click each link and verify they navigate to the correct pages.
 
+**Solution:**
+Click "About Me" - should navigate to `/about/`
+Click "Projects" - should navigate to `/projects/`
+Click "Publications" - should navigate to `/publications/`
+
 ---
 
 **Exercise** Change the description text for one of the links (e.g., change "Learn about my background and skills" to "Discover my experience and expertise"), save, reload the homepage, and verify the change appears.
+
+**Solution:**
+```markdown
+- [About Me](/about/) - Discover my experience and expertise
+```
+Save the file and reload `http://localhost:1313/`. The updated description should appear.
 
 ---
 
@@ -417,6 +596,9 @@ When you need a section to contain multiple individual pages (like multiple proj
 
 **Exercise** Note the difference: the about page is complete as-is with `index.md`, while the projects page will need to list multiple projects, so it will be converted to use `_index.md`.
 
+**Solution:**
+The about page remains as `content/about/index.md` because it's a single cohesive page. The projects page will be renamed to `content/projects/_index.md` to enable listing functionality.
+
 ---
 
 ### Converting projects to a list page
@@ -450,9 +632,15 @@ I built pipelines to download, process, and analyze TESS data. The pipeline incl
 
 **Exercise** Navigate to `http://localhost:1313/projects/tess-pipeline/` and verify the page loads with the project content.
 
+**Solution:**
+Navigate to `http://localhost:1313/projects/tess-pipeline/`. The page should display with the TESS Data Pipeline content.
+
 ---
 
 **Exercise** Navigate to `http://localhost:1313/projects/` and verify it now displays a list with a link to the TESS pipeline project.
+
+**Solution:**
+Navigate to `http://localhost:1313/projects/`. The page should now show the projects overview text plus an automatically generated list with a link to "TESS Data Pipeline".
 
 ---
 
@@ -467,13 +655,32 @@ draft: false
 Tools to merge and analyze multi-sector photometric data from space missions. The tools handle large datasets and identify periodic signals.
 ```
 
+**Solution:**
+Create the file with the content shown and save. Reload `http://localhost:1313/projects/`. The list should now show both "TESS Data Pipeline" and "Light Curve Analysis Tool".
+
 ---
 
 **Exercise** Click on each project link in the list to verify it navigates to the individual project page.
 
+**Solution:**
+Click "TESS Data Pipeline" - should navigate to `/projects/tess-pipeline/`
+Click "Light Curve Analysis Tool" - should navigate to `/projects/light-curve-tool/`
+
 ---
 
 **Exercise** Add a third project page of your own with a different title and content, save, reload `/projects/`, and verify it appears in the projects list automatically.
+
+**Solution:**
+Create `content/projects/data-visualization.md`:
+```markdown
+---
+title: "Interactive Data Visualization Dashboard"
+draft: false
+---
+
+Built an interactive dashboard for real-time data visualization using D3.js and Python.
+```
+Save and reload `http://localhost:1313/projects/`. The list should now show all three projects.
 
 ---
 
@@ -498,6 +705,9 @@ This paper explores machine learning applications in climate prediction. Publish
 
 **Exercise** Navigate to `http://localhost:1313/publications/paper-one/` and verify the publication page loads.
 
+**Solution:**
+Navigate to `http://localhost:1313/publications/paper-one/`. The page should display with the publication content.
+
 ---
 
 **Exercise** Create `content/publications/paper-two.md` with the following content, save, then navigate to `http://localhost:1313/publications/` and verify both papers appear in the list automatically:
@@ -511,9 +721,16 @@ draft: false
 This paper presents novel approaches to analyzing large astronomical datasets. Published in Cell, 2023.
 ```
 
+**Solution:**
+Create the file with the content shown and save. Navigate to `http://localhost:1313/publications/`. The list should show both "Machine Learning for Climate Prediction" and "Neural Networks in Genomics".
+
 ---
 
 **Exercise** Click on each publication link to verify they navigate to the individual publication pages.
+
+**Solution:**
+Click "Machine Learning for Climate Prediction" - should navigate to `/publications/paper-one/`
+Click "Neural Networks in Genomics" - should navigate to `/publications/paper-two/`
 
 ---
 
